@@ -23,7 +23,7 @@ init python:
         for attire in attires:
             for expr in expressions:
                 img_name = "{}_{}_{}".format(char_name, attire, expr)
-                img_path = os.path.join(base_path, "{}_{}.png".format(attire, expr))
+                img_path = os.path.join(base_path, "{}_{}_{}.png".format(char_name, attire, expr))
                 if renpy.loadable(img_path):
                     # 使用 im.Scale 提升画质
                     store.image(img_name, im.Scale(img_path, int(1920 * zoom), int(1080 * zoom)))
