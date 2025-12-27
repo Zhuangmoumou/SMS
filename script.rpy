@@ -13,7 +13,7 @@ image tablenofood="tablenofood_waifu2x_2x_3n_png.png"
 
 
 
-#======================人物立绘定义模块====================
+#======================人物立绘定义块====================
 init python:
     import renpy.store as store
     import os
@@ -31,14 +31,14 @@ init python:
                     renpy.write_log("Missing image: {}".format(img_path))
 
 
-    # 批量加载角色：角色名，衣着，表情姿势
+    # 批量加载角色：标签，衣着（属性1），表情姿势（属性2）
     load_characters("zb", ["decade", "dress", "shirt", "uniform"], ["surprised", "happy", "sad", "angry"])
     load_characters("jitou", ["decade", "dress", "shirt", "uniform"], ["surprised", "happy", "sad", "angry"])
     load_characters("jige", ["decade", "xiaofu", "shirt", "uniform"], ["chakoudai", "huanbao", "sad", "angry"])
     load_characters("bw", ["dress", "dresshat", "shirt", "uniform"], ["smile", "happy", "sad", "angry"])
 
 
-#===================================================
+#======================================================
 
 
 transform p1080p:#定义图片为1080p
