@@ -14,7 +14,7 @@ image tablenofood="tablenofood_waifu2x_2x_3n_png.png"
 
 
 
-init python: #批量定义锦桐立绘
+init python: #批量定义主播立绘
     attires = ["decade", "dress", "shirt", "uniform"]
     expressions = ["surprised", "happy", "sad", "angry"]
     for a in attires:
