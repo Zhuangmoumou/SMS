@@ -74,7 +74,7 @@ label start:
 
     play sound "闹钟.mp3"
     npc "（闹钟声）"
-    show bedroom at p1080p         #使用1080p函数
+    scene bedroom at p1080p         #使用1080p函数
     with Dissolve(1.0)
 
     I "哈～～～～睡得真爽"
@@ -84,24 +84,32 @@ label start:
     npc "我踩着拖鞋冲到衣柜前，柜门拉开时掉出一件白衬衫，单手套外套，另一只手抓过沙发上的深灰背包"
     I "（对着穿衣镜扯平衣领）得赶紧了，可别迟到了"
 
-    show homeclose at p1080p
+    scene homeclose at p1080p
     with dissolve
     npc "我抓起玄关钥匙，关门时回头瞥向挂钟，门 “咔嗒” 锁上"
     I "话说从毕业到现在，都好几年没见大家了…… 有点期待，不知道大家现在都怎么样了"
 
-    show homeopen at p1080p
+    scene homeopen at p1080p
     with dissolve
     play sound "电梯.mp3"
     npc "（电梯声）"
     I "诶，电梯今天怎么这么快"
     I "顺便把垃圾倒了吧"
 
-    show CityStreet at p1080p
+    scene CityStreet at p1080p
     with fade
     play music "轻松.mp3" volume 0.6 fadein 1.0
     I "呼…… 可算快到了，应该赶得上吧"
     npc "我正要过公路时，左肩突然被撞了一下"
-    show jitou surprised at center,hit_three:
+    scene jitou surprised at center,hit_three:
         ypos 2500
 
     jitou "啊~~~{w}\n对...对...对不起！{w}\n我没看路！"
+    I "是锦桐吗，好久不见了"
+    jitou "好巧啊"
+    I "(这么多年过去，她还是老样子…… 不过聚会快开始了，先进去再叙旧吧)"
+    I "我们赶紧进去吧，大家应该都到得差不多了"
+
+    scene table1 at p1080p
+    with dissolve
+    scene
