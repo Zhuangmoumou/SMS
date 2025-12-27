@@ -1,20 +1,56 @@
 define I = Character('我', color="#1a1a1a")#定义人物
 define npc = Character(None, kind=adv)
 define jitou =Character('锦桐',color="#b39c1f",image="jitou")
+define bw = Character('冰', color="#888888")
+define jige = Character('鸡哥', color="#4a90e2")
 
 image bedroom="bedroom_waifu2x_2x_2n_jpeg.png"#定义场景
 image homeopen="homeopen_waifu2x_2x_2n_jpeg.png"
 image homeclose="homeclose_waifu2x_2x_2n_jpeg.png"
 image CityStreet="street_waifu2x_2x_2n_jpeg.png"
+image tablefood="tablefood_waifu2x_2x_3n_png.png"
+image tablenofood="tablenofood_waifu2x_2x_3n_png.png"
 
-image jitou surprised = Transform("images/jitou/jitou surprised.png",zoom = 0.8)
+
+
+
+init python: #批量定义锦桐立绘
+    attires = ["decade", "dress", "shirt", "uniform"]
+    expressions = ["surprised", "happy", "sad", "angry"]
+    for a in attires:
+        for e in expressions:
+            renpy.image("zb %s %s" % (a, e), Transform("images/zb/zb_%s_%s.png" % (a, e), zoom=0.6))
+
+
+init python: #批量定义锦桐立绘
+    attires = ["decade", "dress", "shirt", "uniform"]
+    expressions = ["surprised", "happy", "sad", "angry"]
+    for a in attires:
+        for e in expressions:
+            renpy.image("jitou %s %s" % (a, e), Transform("images/jitou/jitou_%s_%s.png" % (a, e), zoom=0.6))
+
+init python: #批量定义鸡哥立绘
+    attires = ["decade", "xiaofu", "shirt", "uniform"]
+    expressions = ["chakoudai", "huanbao", "sad", "angry"]
+    for a in attires:
+        for e in expressions:
+            renpy.image("jige %s %s" % (a, e), Transform("images/jige/jige_%s_%s.png" % (a, e), zoom=0.6))
+
+init python: #批量定义兵王立绘
+    attires = ["dress", "dresshat", "shirt", "uniform"]
+    expressions = ["smile", "happy", "sad", "angry"]
+    for a in attires:
+        for e in expressions:
+            renpy.image("bw %s %s" % (a, e), Transform("images/bw/bw_%s_%s.png" % (a, e), zoom=0.6))
+
+
+
+
 
 transform p1080p:#定义图片为1080p
     size (1920, 1080)  # 设置为1080p全高清分辨率
     xalign 0.5         # 水平居中
     yalign 0.5         # 垂直居中
-
-
 
 transform hit(direction=1, intensity=100, shake_intensity=10):
     # 主撞击动作
@@ -31,7 +67,6 @@ transform hit(direction=1, intensity=100, shake_intensity=10):
         ease 0.05 xoffset shake_intensity/2
         ease 0.05 xoffset -shake_intensity/2
         ease 0.05 xoffset 0
-
 
 transform hit_three:
     # 第一阶段：轻微后仰
@@ -57,17 +92,6 @@ transform hit_three:
             ease 0.1 xoffset 2 yoffset 1 rotate 1
             ease 0.15 xoffset -1 yoffset -0.5 rotate -0.5
             ease 0.2 xoffset 0 yoffset 0 rotate 0
-
-
-
-
-
-
-
-
-
-
-
 
 
 label start:
@@ -101,15 +125,15 @@ label start:
     play music "轻松.mp3" volume 0.6 fadein 1.0
     I "呼…… 可算快到了，应该赶得上吧"
     npc "我正要过公路时，左肩突然被撞了一下"
-    scene jitou surprised at center,hit_three:
-        ypos 2500
+    show jitou decade surprised at hit_three,center:
+        ypos 2100
 
     jitou "啊~~~{w}\n对...对...对不起！{w}\n我没看路！"
     I "是锦桐吗，好久不见了"
-    jitou "好巧啊"
+    jitou  "好巧啊"
     I "(这么多年过去，她还是老样子…… 不过聚会快开始了，先进去再叙旧吧)"
     I "我们赶紧进去吧，大家应该都到得差不多了"
 
-    scene table1 at p1080p
+    scene tablenofood at p1080p
     with dissolve
-    scene
+
