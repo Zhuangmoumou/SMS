@@ -136,4 +136,7 @@ label start:
 
     scene tablenofood at p1080p
     with dissolve
-
+    show jige decade huanbao with fade
+    jige "(看了看手表)"
+    jige "时间快到了，人都到齐了吗"
+    
