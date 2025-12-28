@@ -15,27 +15,35 @@ image tablenofood="tablenofood_waifu2x_2x_3n_png.png"
 
 #======================人物立绘定义块====================
 init python:
-    import renpy.store as store
-    import os
+    # 定义所有角色的配置数据
+    # 格式: "角色名": {"cloth": [服装], "action": [表情]}
+    char_configs = {
+        "zb": {
+            "cloth": ["decade", "dress", "shirt", "uniform"],
+            "action": ["surprised", "happy", "sad", "angry"]
+        },
+        "jitou": {
+            "cloth": ["decade", "dress", "shirt", "uniform"],
+            "action": ["surprised", "happy", "sad", "angry"]
+        },
+        "jige": {
+            "cloth": ["decade", "xiaofu", "shirt", "uniform"],
+            "action": ["chakoudai", "huanbao", "sad", "angry"]
+        },
+        "bw": {
+            "cloth": ["dress", "dresshat", "shirt", "uniform"],
+            "action": ["smile", "happy", "sad", "angry"]
+        }
+    }
 
-    def load_characters(char_name, attires, expressions, zoom=0.6):
-        base_path = "images/{}/".format(char_name)
-        for attire in attires:
-            for expr in expressions:
-                img_name = "{}_{}_{}".format(char_name, attire, expr)
-                img_path = os.path.join(base_path, "{}_{}_{}.png".format(char_name, attire, expr))
-                if renpy.loadable(img_path):
-                    # 使用 im.Scale 提升画质
-                    store.Image(img_name, im.Scale(img_path, int(1920 * zoom), int(1080 * zoom)))
-                else:
-                    renpy.write_log("Missing image: {}".format(img_path))
-
-
-    # 批量加载角色：标签，衣着（属性1），表情姿势（属性2）
-    load_characters("zb", ["decade", "dress", "shirt", "uniform"], ["surprised", "happy", "sad", "angry"])
-    load_characters("jitou", ["decade", "dress", "shirt", "uniform"], ["surprised", "happy", "sad", "angry"])
-    load_characters("jige", ["decade", "xiaofu", "shirt", "uniform"], ["chakoudai", "huanbao", "sad", "angry"])
-    load_characters("bw", ["dress", "dresshat", "shirt", "uniform"], ["smile", "happy", "sad", "angry"])
+    # 统一循环处理
+    for name, config in char_configs.items():
+        for a in config["attires"]:
+            for e in config["expressions"]:
+                renpy.image(
+                    "{} {} {}".format(name, a, e), 
+                    Transform("images/{}/{}_{}_{}.png".format(name, name, a, e), zoom=0.6)
+                )
 
 
 #======================================================
