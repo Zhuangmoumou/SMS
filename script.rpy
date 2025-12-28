@@ -17,7 +17,7 @@ image tablenofood="tablenofood_waifu2x_2x_3n_png.png"
 init python:
     # 定义所有角色的配置数据
     # 格式: "角色名": {"cloth": [服装], "action": [表情]}
-    char_configs = {
+    char_config = {
         "zb": {
             "cloth": ["decade", "dress", "shirt", "uniform"],
             "action": ["surprised", "happy", "sad", "angry"]
