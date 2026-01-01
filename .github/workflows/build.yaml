@@ -1,0 +1,107 @@
+name: Build Ren'Py Game
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: # 允许手动触发
+
+env:
+  RENPY_VERSION: '8.5.0' # 你可以在这里指定你想要的 Ren'Py 版本
+  PROJECT_NAME: 'SMS' # 这里最好改成你的项目英文名，用于文件夹命名
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ---------------------------------------------------------
+      # 特殊处理：目录重组
+      # 因为你的源码在根目录，而 Ren'Py 需要 "项目/game" 的结构
+      # ---------------------------------------------------------
+      - name: Restructure directory for Ren'Py
+        run: |
+          # 1. 创建临时的项目目录结构
+          mkdir -p build_work/${{ env.PROJECT_NAME }}/game
+
+          # 2. 将所有文件移动到 game 目录下 (排除 .git 和我们刚创建的 build_work)
+          # 使用 rsync 可以方便地排除目录
+          rsync -av --exclude='.git' --exclude='.github' --exclude='build_work' ./ build_work/${{ env.PROJECT_NAME }}/game/
+
+          # 3. 处理 android.json
+          # 如果 android.json 原本在根目录，经过上面移动后它在 game/ 下面
+          # 通常 android.json 应该位于项目的根目录（即 game 的上一级）
+          if [ -f "build_work/${{ env.PROJECT_NAME }}/game/android.json" ]; then
+            mv "build_work/${{ env.PROJECT_NAME }}/game/android.json" "build_work/${{ env.PROJECT_NAME }}/"
+            echo "Moved android.json to project root."
+          fi
+
+          echo "Directory structure prepared in build_work/${{ env.PROJECT_NAME }}"
+          ls -R build_work
+
+      # ---------------------------------------------------------
+      # 安装依赖 (如果你的项目里有 python 依赖库)
+      # ---------------------------------------------------------
+      # - name: Install python dependencies
+      #   run: |
+      #     pip install -r requirements.txt
+      #   working-directory: build_work/${{ env.PROJECT_NAME }}
+
+      # ---------------------------------------------------------
+      # 开始构建
+      # ---------------------------------------------------------
+      - name: Build with Ren'Py
+        uses: project-is/renpy-build-action@v1.4.0
+        with:
+          sdk-version: ${{ env.RENPY_VERSION }}
+          project-dir: 'build_work/${{ env.PROJECT_NAME }}' # 指向我们重组后的目录
+          # 这里不指定 android-package，让其构建所有 target 或者我们在后面手动过滤
+          # 但我们需要传入安卓签名信息
+          android-keystore-base64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          android-keystore-alias: ${{ secrets.ANDROID_KEY_ALIAS }}
+          android-keystore-password: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
+          android-key-password: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          # 仅生成 release 包
+          build-args: "--no-update"
+
+      # ---------------------------------------------------------
+      # 上传 Artifacts (分步上传，方便下载)
+      # ---------------------------------------------------------
+
+      # 1. 上传 PC 版 (Windows/Linux/Mac)
+      - name: Upload PC Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PROJECT_NAME }}-PC
+          path: |
+            build_work/${{ env.PROJECT_NAME }}/**/*-pc.zip
+            build_work/${{ env.PROJECT_NAME }}/**/*-mac.zip
+            build_work/${{ env.PROJECT_NAME }}/**/*-linux.tar.bz2
+            # 通常 Ren'Py 会打成一个全平台的 zip，或者分开，具体看 options.rpy 配置
+            # 这里尝试捕获所有常见的 PC 构建产物
+            build_work/${{ env.PROJECT_NAME }}/**/*-dists/**
+            !**/*.apk
+            !**/*.aab
+            !**/*-web.zip
+
+      # 2. 上传 Android APK (只取 APK，忽略 AAB)
+      - name: Upload Android APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PROJECT_NAME }}-APK
+          path: |
+            # 查找所有生成的 apk 文件
+            **/*.apk
+            # 确保排除 release 目录外的中间文件（通常 build action 会把结果放在 dists 或根目录）
+
+      # 3. 上传 Web 版
+      - name: Upload Web Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PROJECT_NAME }}-Web
+          path: |
+            build_work/${{ env.PROJECT_NAME }}/**/*-web.zip
