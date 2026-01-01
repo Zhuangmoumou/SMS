@@ -28,3 +28,17 @@ jobs:
             mv ../game .
             mv game/android.json .
             ls && ls game
+            
+      - name: 初始化环境
+        run: |
+            wget https://www.renpy.org/dl/8.5.1/renpy-8.5.1-sdk.tar.bz2
+            tar xjf renpy-8.5.1-sdk.tar.bz2
+            mv renpy-8.5.1-sdk renpy && rm renpy-8.5.1-sdk.tar.bz2
+            cd renpy
+            wget https://www.renpy.org/dl/8.5.1/renpy-8.5.1-rapt.zip
+            unzip renpy-8.5.1-rapt.zip
+            rm renpy-8.5.1-rapt.zip
+            mv rapt/* ./ && rm -r rapt
+            echo '当期目录'
+            ls
+            
