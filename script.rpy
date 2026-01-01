@@ -14,6 +14,7 @@ image tablenofood="tablenofood_waifu2x_2x_3n_png.png"
 
 
 
+<<<<<<< Updated upstream
 init python: #批量定义锦桐立绘
     attires = ["decade", "dress", "shirt", "uniform"]
     expressions = ["surprised", "happy", "sad", "angry"]
@@ -42,6 +43,8 @@ init python: #批量定义兵王立绘
     for a in attires:
         for e in expressions:
             renpy.image("bw %s %s" % (a, e), Transform("images/bw/bw_%s_%s.png" % (a, e), zoom=0.6))
+=======
+>>>>>>> Stashed changes
 
 
 
@@ -125,15 +128,37 @@ label start:
     play music "轻松.mp3" volume 0.6 fadein 1.0
     I "呼…… 可算快到了，应该赶得上吧"
     npc "我正要过公路时，左肩突然被撞了一下"
-    show jitou decade surprised at hit_three,center:
+    show jitou decade_surprised at hit_three,center:
         ypos 2100
-
+        zoom 0.6
+    with fade
     jitou "啊~~~{w}\n对...对...对不起！{w}\n我没看路！"
     I "是锦桐吗，好久不见了"
+    show jitou decade at center:
+        ypos 2100
+        zoom 0.6
     jitou  "好巧啊"
     I "(这么多年过去，她还是老样子…… 不过聚会快开始了，先进去再叙旧吧)"
     I "我们赶紧进去吧，大家应该都到得差不多了"
 
     scene tablenofood at p1080p
     with dissolve
+<<<<<<< Updated upstream
 
+=======
+    show jige decade_huanbao at center:
+        ypos 1900
+        zoom 0.6
+    with dissolve
+    jige "(看了看手表)"
+    jige "时间差不多了，人都到齐了吗"
+    I "好久不见，鸡哥"
+    jige "你们终于到了，其他人呢"
+
+    show jige decade_huanbao at left:
+        ypos 1900
+        zoom 0.6
+    show wz decade_normal at right:
+        ypos 1900  
+        zoom 0.6
+>>>>>>> Stashed changes
