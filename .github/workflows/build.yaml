@@ -1,109 +1,30 @@
-name: Build Ren'Py Game
+name: Renpy Build
 
 on:
+  # 1. 当代码推送到 main 分支时触发
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+  
+  # 2. 允许手动触发
   workflow_dispatch:
 
-env:
-  RENPY_VERSION: '8.5.0' # 建议改回你最初的版本，因为新 Action 可能支持
-  PROJECT_NAME: 'SMS'
-  # 保持 ANDROID_NDK_HOME，以防万一
-  ANDROID_NDK_HOME: ""
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
+
+    # 任务步骤
     steps:
-      - name: Checkout repository
+      # 步骤 1: 检出代码
+      - name: 检出仓库代码
         uses: actions/checkout@v4
 
-      # 1. 目录重组 (保持不变，将项目文件移动到 PROJECT_NAME 目录下)
-      - name: Restructure directory
+      - name: 调整目录结构
         run: |
-          # 创建项目根目录
-          mkdir -p build_work/${{ env.PROJECT_NAME }}/game
-          # 移动所有文件到 game 目录
-          rsync -av --exclude='.git' --exclude='.github' --exclude='build_work' ./ build_work/${{ env.PROJECT_NAME }}/game/
-
-          # 将 android.json 移回项目根目录 (game 的上一级)
-          if [ -f "build_work/${{ env.PROJECT_NAME }}/game/android.json" ]; then
-            mv "build_work/${{ env.PROJECT_NAME }}/game/android.json" "build_work/${{ env.PROJECT_NAME }}/"
-            echo "Moved android.json to project root."
-          fi
-
-      # 2. 解码 Keystore 文件
-      # 注意：Keystore 放在项目根目录，即 build_work/${{ env.PROJECT_NAME }}/
-      - name: Decode Keystore
-        env:
-          ANDROID_KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
-        run: |
-          echo "$ANDROID_KEYSTORE_B64" | base64 --decode > build_work/${{ env.PROJECT_NAME }}/android.keystore
-          echo "Keystore decoded successfully."
-
-      # ---------------------------------------------------------
-      # 使用 ProjectAliceDev/renpy-build-action 进行构建
-      # ---------------------------------------------------------
-
-      # 3. 构建 Android APK
-      - name: Build Android APK
-        uses: ProjectAliceDev/renpy-build-action@master
-        with:
-          # 指向项目根目录
-          project_path: build_work/${{ env.PROJECT_NAME }} 
-          # 指定 Ren'Py 版本
-          sdk-version: '8.5.0'
-          # 只构建 Android
-          package: ['win', 'web', 'android']
-          # Android 签名信息
-          android_keystore_alias: ${{ secrets.ANDROID_KEY_ALIAS }}
-          android_keystore_password: ${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
-          android_key_password: ${{ secrets.ANDROID_KEY_PASSWORD }}
-          # Keystore 文件名，默认会在 project_path 下查找 android.keystore
-          android_keystore_file: android.keystore 
-          # 输出目录
-          output_path: dist_android
-
-      # 4. 构建 PC 版 (Win/Linux/Mac)
-      - name: Build PC Distributions
-        uses: ProjectAliceDev/renpy-build-action@master
-        with:
-          project_path: build_work/${{ env.PROJECT_NAME }}
-          renpy_version: ${{ env.RENPY_VERSION }}
-          # 构建 PC 平台
-          build_platforms: windows,linux,mac
-          output_path: dist_pc
-
-      # 5. 构建 Web 版
-      - name: Build Web Version
-        uses: ProjectAliceDev/renpy-build-action@master
-        with:
-          project_path: build_work/${{ env.PROJECT_NAME }}
-          renpy_version: ${{ env.RENPY_VERSION }}
-          # 构建 Web 平台
-          build_platforms: web
-          output_path: dist_web
-
-      # ---------------------------------------------------------
-      # 上传产物 (保持不变)
-      # ---------------------------------------------------------
-      - name: Upload Android APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.PROJECT_NAME }}-APK
-          path: dist_android
-
-      - name: Upload PC Build
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.PROJECT_NAME }}-PC
-          path: dist_pc/*.zip
-          if-no-files-found: warn
-
-      - name: Upload Web Build
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.PROJECT_NAME }}-Web
-          path: dist_web/*.zip
+            mkdir ../game
+            mv ./* ../game
+            ls
+            mv ../game .
+            mv game/android.json .
+            ls
