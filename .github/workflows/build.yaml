@@ -50,6 +50,21 @@ jobs:
           echo '主目录：'
           cd $GITHUB_WORKSPACE
           ls
+          
+      - name: 导入 Android Keystore
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > $GITHUB_WORKSPACE/build/android.keystore
+          cat > $GITHUB_WORKSPACE/build/android.json << EOF
+          {
+            "key_store": "$GITHUB_WORKSPACE/build/android.keystore",
+            "key_store_password": "android",
+            "key_alias": "android",
+            "key_password": "android",
+            "update_always_sign": true
+          }
+          EOF
 
       - name: 设置 JDK 21
         uses: actions/setup-java@v4
@@ -68,6 +83,12 @@ jobs:
           cd $GITHUB_WORKSPACE/renpy
           mkdir $GITHUB_WORKSPACE/output-web
           ./renpy.sh launcher distribute $GITHUB_WORKSPACE/build --package web --destination $GITHUB_WORKSPACE/output-web
+
+      - name: 构建Android版本
+        run: |
+          cd $GITHUB_WORKSPACE/renpy
+          mkdir $GITHUB_WORKSPACE/output-android
+          ./renpy.sh launcher distribute $GITHUB_WORKSPACE/build --package android --destination $GITHUB_WORKSPACE/output-android
           
       - name: 上传Windows构建产物
         uses: actions/upload-artifact@v4
@@ -80,3 +101,9 @@ jobs:
         with:
           name: renpy-build-output-web
           path: ${{ github.workspace }}/output-web/
+
+      - name: 上传Android构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: renpy-build-output-win
+          path: ${{ github.workspace }}/output-android/
