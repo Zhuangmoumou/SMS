@@ -59,13 +59,24 @@ jobs:
 
       - name: 构建Windows版本
         run: |
-          cd renpy
+          cd $GITHUB_WORKSPACE/renpy
           mkdir $GITHUB_WORKSPACE/output-win
           ./renpy.sh launcher distribute $GITHUB_WORKSPACE/build --package win --destination $GITHUB_WORKSPACE/output-win
           
-
-      - name: 上传构建产物
+      - name: 构建Web版本
+        run: |
+          cd $GITHUB_WORKSPACE/renpy
+          mkdir $GITHUB_WORKSPACE/output-web
+          ./renpy.sh launcher distribute $GITHUB_WORKSPACE/build --package web --destination $GITHUB_WORKSPACE/output-web
+          
+      - name: 上传Windows构建产物
         uses: actions/upload-artifact@v4
         with:
           name: renpy-build-output-win
           path: ${{ github.workspace }}/output-win/
+          
+      - name: 上传Web构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: renpy-build-output-web
+          path: ${{ github.workspace }}/output-web/
