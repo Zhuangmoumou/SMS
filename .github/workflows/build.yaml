@@ -76,19 +76,19 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/renpy
           mkdir $GITHUB_WORKSPACE/output-win
-          ./renpy.sh launcher distribute $GITHUB_WORKSPACE/build --package win --destination $GITHUB_WORKSPACE/output-win
+          ./renpy.sh launcher distribute $GITHUB_WORKSPACE/build --package win --no-update --destination $GITHUB_WORKSPACE/output-win
           
       - name: 构建Web版本
         run: |
           cd $GITHUB_WORKSPACE/renpy
           mkdir $GITHUB_WORKSPACE/output-web
-          ./renpy.sh launcher distribute $GITHUB_WORKSPACE/build --package web --destination $GITHUB_WORKSPACE/output-web
+          ./renpy.sh launcher distribute $GITHUB_WORKSPACE/build --package web --no-update --destination $GITHUB_WORKSPACE/output-web
 
       - name: 构建Android版本
         run: |
           cd $GITHUB_WORKSPACE/renpy
           mkdir $GITHUB_WORKSPACE/output-android
-          ./renpy.sh $GITHUB_WORKSPACE/build android_build --destination $GITHUB_WORKSPACE/output-android
+          ./renpy.sh launcher android_build $GITHUB_WORKSPACE/build --destination $GITHUB_WORKSPACE/output-android
           
       - name: 上传Windows构建产物
         uses: actions/upload-artifact@v4
