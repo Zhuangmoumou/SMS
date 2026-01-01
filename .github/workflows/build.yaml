@@ -57,7 +57,7 @@ jobs:
           action: install
           version: ${{ env.RENPY_VERSION }}
           install_dir: ${{ runner.temp }}/renpy
-          dlc: android web
+          dlc: rapt web
           android_sdk: true
           # 关键：配置签名信息，让 Ren'Py 知道使用你的 key
           android_properties: |
