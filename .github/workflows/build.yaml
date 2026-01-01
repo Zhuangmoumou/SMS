@@ -27,4 +27,4 @@ jobs:
             ls
             mv ../game .
             mv game/android.json .
-            ls
+            ls && ls game
