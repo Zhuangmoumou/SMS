@@ -68,4 +68,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: renpy-build-output-win
-          path: ${{ github.workspace }}/renpy/output-win/
+          path: ${{ github.workspace }}/output-win/
