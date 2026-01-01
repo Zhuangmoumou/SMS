@@ -7,8 +7,7 @@ on:
 
 env:
   RENPY_VERSION: '8.3.0'
-  PROJECT_NAME: 'SMS' # 你的项目英文名
-  # 关键：解决 GitHub Runner 上 NDK 不兼容的问题，这是 Android 构建的常见要求
+  PROJECT_NAME: 'SMS' # 项目英文名
   ANDROID_NDK_HOME: ""
 
 jobs:
@@ -20,14 +19,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 1. 引入 Java 8 环境 (Android SDK 构建所需)
+      # 1. 引入 Java 21 环境 (Android SDK 构建所需)
       - name: Setup Java 21
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt-hotspot'
           java-version: '21'
 
-      # 2. 目录重组 (保持不变，针对你的根目录结构)
+      # 2. 目录重组
       - name: Restructure directory
         run: |
           mkdir -p build_work/${{ env.PROJECT_NAME }}/game
@@ -40,7 +39,7 @@ jobs:
             echo "Moved android.json to project root."
           fi
 
-      # 3. 解码 Keystore 文件 (保持不变)
+      # 3. 解码 Keystore 文件
       - name: Decode Keystore
         env:
           ANDROID_KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
@@ -50,23 +49,22 @@ jobs:
           echo "Keystore decoded successfully."
 
       # 4. 安装 Ren'Py 环境 (包含 Android SDK)
-      # 统一使用 v2.0.1 版本，以解决之前遇到的 'rapt' 模块找不到的问题
       - name: Install Ren'Py
-        uses: Ayowel/renpy-setup-action@v2.0.1 # 统一版本
+        uses: Ayowel/renpy-setup-action@v2.0.1
         with:
           action: install
           version: ${{ env.RENPY_VERSION }}
           install_dir: ${{ runner.temp }}/renpy
           dlc: rapt web
           android_sdk: true
-          # 关键：配置签名信息，让 Ren'Py 知道使用你的 key
+          # 关键：配置签名信息，让 Ren'Py 知道使用的 key
           android_properties: |
             key.alias=${{ secrets.ANDROID_KEY_ALIAS }}
             key.store.password=${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
             key.alias.password=${{ secrets.ANDROID_KEY_PASSWORD }}
             key.store=${{ github.workspace }}/build_work/${{ env.PROJECT_NAME }}/android.keystore
 
-      # 5. 构建 Android APK (保持不变)
+      # 5. 构建 Android APK
       - name: Build Android APK
         uses: Ayowel/renpy-setup-action@v2.0.1
         with:
@@ -74,19 +72,19 @@ jobs:
           install_dir: ${{ runner.temp }}/renpy
           game: 'build_work/${{ env.PROJECT_NAME }}' # 指向项目根目录
           build_type: 'apk' # 只构建 apk
-         out_dir: 'dist_android'
+          out_dir: 'dist_android'
 
-      # 6. 构建 PC 版 (Win/Linux/Mac) (保持不变)
+      # 6. 构建 PC 版 (Win/Linux/Mac)
       - name: Build PC Distributions
         uses: Ayowel/renpy-setup-action@v2.0.1
         with:
           action: distribute
           install_dir: ${{ runner.temp }}/renpy
           game: 'build_work/${{ env.PROJECT_NAME }}'
-          packages: 'pc' # 或者 'win linux mac'
+          packages: 'win' # 或者 'win linux mac'
           out_dir: 'dist_pc'
 
-      # 7. 构建 Web 版 (保持不变)
+      # 7. 构建 Web 版
       - name: Build Web Version
         uses: Ayowel/renpy-setup-action@v2.0.1
         with:
@@ -96,19 +94,17 @@ jobs:
           packages: 'web'
           out_dir: 'dist_web'
 
-      # ---------------------------------------------------------
-      # 上传产物 (保持不变)
-      # ---------------------------------------------------------
-#      - name: Upload Android APK
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: ${{ env.PROJECT_NAME }}-APK
-#          path: dist_android/*.apk
-
-      - name: Upload PC Build
+      # 上传产物
+      - name: Upload Android APK
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.PROJECT_NAME }}-PC
+          name: ${{ env.PROJECT_NAME }}-APK
+          path: dist_android/*.apk
+
+      - name: Upload Win Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PROJECT_NAME }}-Win
           path: dist_pc/*.zip
           if-no-files-found: warn
 
