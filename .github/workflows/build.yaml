@@ -44,7 +44,7 @@ jobs:
           echo '下载完成：rapt'
           unzip renpy-8.5.1-rapt.zip
           rm renpy-8.5.1-rapt.zip
-          cp rapt/* ./
+          cp -r rapt/* ./
           echo '当前renpy目录：'
           ls
           echo '主目录：'
