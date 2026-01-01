@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  RENPY_VERSION: '8.5.0' # 根据你的项目修改版本
+  RENPY_VERSION: '8.3.2'
   PROJECT_NAME: 'SMS' # 你的项目英文名
 
 jobs:
@@ -43,7 +43,7 @@ jobs:
       # 3. 安装 Ren'Py 环境 (包含 Android SDK)
       # 这里我们配置了 android_properties 来注入签名信息
       - name: Install Ren'Py with Android Support
-        uses: Ayowel/renpy-setup-action@v2
+        uses: Ayowel/renpy-setup-action@v2.0.1
         with:
           action: install
           version: ${{ env.RENPY_VERSION }}
