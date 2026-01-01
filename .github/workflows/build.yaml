@@ -22,12 +22,15 @@ jobs:
 
       - name: 调整目录结构
         run: |
-            mkdir ../game
+            mkdir ../game && mkdir ../build
             mv ./* ../game
             ls
-            mv ../game .
-            mv game/android.json .
-            ls && ls game
+            mv ../game ../build
+            mv ../build/game/android.json ../build/
+            mv ../build .
+            ls && ls build
+            echo 'game文件夹所在目录：${{GITHUB_WORKSPACE}}/build'
+            
             
       - name: 初始化环境
         run: |
@@ -37,12 +40,25 @@ jobs:
             ls
             mv renpy-8.5.1-sdk renpy
             rm renpy-8.5.1-sdk.tar.bz2
+            ls
             cd renpy
             wget -q https://www.renpy.org/dl/8.5.1/renpy-8.5.1-rapt.zip
             echo '下载完成：rapt'
             unzip renpy-8.5.1-rapt.zip
             rm renpy-8.5.1-rapt.zip
             mv rapt/* ./ && rm -r rapt
-            echo '当前目录'
+            echo '当前renpy目录：'
             ls
-            
+            echo '主目录：'
+            cd $GITHUB_WORKSPACE
+            ls
+
+        - name: 设置 JDK 21
+            uses: actions/setup-java@v4
+            with:
+            java-version: '21' 
+            distribution: 'temurin' 
+
+        - name: 构建Windows版本
+            cd renpy
+            ./renpy.sh launcher distribute $GITHUB_WORKSPACE/ --package win
