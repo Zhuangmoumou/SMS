@@ -31,11 +31,11 @@ jobs:
             
       - name: 初始化环境
         run: |
-            wget -q -O renpy.tar.bz2 https://www.renpy.org/dl/8.5.1/renpy-8.5.1-sdk.tar.bz2
+            wget -q https://www.renpy.org/dl/8.5.1/renpy-8.5.1-sdk.tar.bz2
             echo '下载完成：renpy.tar.gz'
-            tar xjf renpy.tar.bz2
+            tar xjf renpy-8.5.1-sdk.tar.bz2
             ls
-            #mv renpy-8.5.1-sdk renpy
+            mv renpy-8.5.1-sdk renpy
             rm renpy-8.5.1-sdk.tar.bz2
             cd renpy
             wget -q https://www.renpy.org/dl/8.5.1/renpy-8.5.1-rapt.zip
