@@ -57,14 +57,14 @@ jobs:
           action: install
           version: ${{ env.RENPY_VERSION }}
           install_dir: ${{ runner.temp }}/renpy
-          dlcs: web
-          #android_sdk: true
+          dlc: android web
+          android_sdk: true
           # 关键：配置签名信息，让 Ren'Py 知道使用你的 key
-          #android_properties: |
-            #key.alias=${{ secrets.ANDROID_KEY_ALIAS }}
-            #key.store.password=${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
-            #key.alias.password=${{ secrets.ANDROID_KEY_PASSWORD }}
-            #key.store=${{ github.workspace }}/build_work/${{ env.PROJECT_NAME }}/android.keystore
+          android_properties: |
+            key.alias=${{ secrets.ANDROID_KEY_ALIAS }}
+            key.store.password=${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
+            key.alias.password=${{ secrets.ANDROID_KEY_PASSWORD }}
+            key.store=${{ github.workspace }}/build_work/${{ env.PROJECT_NAME }}/android.keystore
 
       # 5. 构建 Android APK (保持不变)
 #      - name: Build Android APK
