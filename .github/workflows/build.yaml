@@ -43,7 +43,7 @@ jobs:
       # 3. 安装 Ren'Py 环境 (包含 Android SDK)
       # 这里我们配置了 android_properties 来注入签名信息
       - name: Install Ren'Py with Android Support
-        uses: Ayowel/renpy-setup-action@v2.0.1
+        uses: Ayowel/renpy-setup-action@v2
         with:
           action: install
           version: ${{ env.RENPY_VERSION }}
