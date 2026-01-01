@@ -21,11 +21,11 @@ jobs:
         uses: actions/checkout@v4
 
       # 1. 引入 Java 8 环境 (Android SDK 构建所需)
-      - name: Setup Java 8
+      - name: Setup Java 21
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt-hotspot'
-          java-version: '8'
+          java-version: '21'
 
       # 2. 目录重组 (保持不变，针对你的根目录结构)
       - name: Restructure directory
