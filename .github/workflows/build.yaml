@@ -29,9 +29,8 @@ jobs:
             mv ../build/game/android.json ../build/
             mv ../build .
             ls && ls build
-            echo 'game文件夹所在目录：$GITHUB_WORKSPACE/build'
-            
-            
+            echo "game文件夹所在目录：$GITHUB_WORKSPACE/build"
+        
       - name: 初始化环境
         run: |
             wget -q https://www.renpy.org/dl/8.5.1/renpy-8.5.1-sdk.tar.bz2
