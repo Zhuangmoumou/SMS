@@ -67,14 +67,14 @@ jobs:
             key.store=${{ github.workspace }}/build_work/${{ env.PROJECT_NAME }}/android.keystore
 
       # 5. 构建 Android APK (保持不变)
-#      - name: Build Android APK
-#        uses: Ayowel/renpy-setup-action@v2.0.1
-#        with:
-#          action: android_build
-#          install_dir: ${{ runner.temp }}/renpy
-#          game: 'build_work/${{ env.PROJECT_NAME }}' # 指向项目根目录
-#          build_type: 'apk' # 只构建 apk
-#         out_dir: 'dist_android'
+      - name: Build Android APK
+        uses: Ayowel/renpy-setup-action@v2.0.1
+        with:
+          action: android_build
+          install_dir: ${{ runner.temp }}/renpy
+          game: 'build_work/${{ env.PROJECT_NAME }}' # 指向项目根目录
+          build_type: 'apk' # 只构建 apk
+         out_dir: 'dist_android'
 
       # 6. 构建 PC 版 (Win/Linux/Mac) (保持不变)
       - name: Build PC Distributions
