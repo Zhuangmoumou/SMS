@@ -51,20 +51,20 @@ jobs:
 
       # 4. 安装 Ren'Py 环境 (包含 Android SDK)
       # 统一使用 v2.0.1 版本，以解决之前遇到的 'rapt' 模块找不到的问题
-      - name: Install Ren'Py with Android Support
+      - name: Install Ren'Py
         uses: Ayowel/renpy-setup-action@v2.0.1 # 统一版本
         with:
           action: install
           version: ${{ env.RENPY_VERSION }}
           install_dir: ${{ runner.temp }}/renpy
           dlcs: web
-          android_sdk: true
+          #android_sdk: true
           # 关键：配置签名信息，让 Ren'Py 知道使用你的 key
-          android_properties: |
-            key.alias=${{ secrets.ANDROID_KEY_ALIAS }}
-            key.store.password=${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
-            key.alias.password=${{ secrets.ANDROID_KEY_PASSWORD }}
-            key.store=${{ github.workspace }}/build_work/${{ env.PROJECT_NAME }}/android.keystore
+          #android_properties: |
+            #key.alias=${{ secrets.ANDROID_KEY_ALIAS }}
+            #key.store.password=${{ secrets.ANDROID_KEY_STORE_PASSWORD }}
+            #key.alias.password=${{ secrets.ANDROID_KEY_PASSWORD }}
+            #key.store=${{ github.workspace }}/build_work/${{ env.PROJECT_NAME }}/android.keystore
 
       # 5. 构建 Android APK (保持不变)
 #      - name: Build Android APK
