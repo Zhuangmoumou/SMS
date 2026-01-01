@@ -94,16 +94,16 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: renpy-build-output-win
-          path: ${{ github.workspace }}/output-win/
+          path: ${{ github.workspace }}/output-win/*
           
       - name: 上传Web构建产物
         uses: actions/upload-artifact@v4
         with:
           name: renpy-build-output-web
-          path: ${{ github.workspace }}/output-web/
+          path: ${{ github.workspace }}/output-web/*
 
       - name: 上传Android构建产物
         uses: actions/upload-artifact@v4
         with:
-          name: renpy-build-output-win
-          path: ${{ github.workspace }}/output-android/
+          name: renpy-build-output-android
+          path: ${{ github.workspace }}/output-android/*
