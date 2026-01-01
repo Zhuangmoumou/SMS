@@ -66,6 +66,6 @@ jobs:
 
       - name: 上传构建产物
         uses: actions/upload-artifact@v4
-          with:
-            name: renpy-build-output-win
-            path: ${{ github.workspace }}/renpy/output-win/
+        with:
+          name: renpy-build-output-win
+          path: ${{ github.workspace }}/renpy/output-win/
