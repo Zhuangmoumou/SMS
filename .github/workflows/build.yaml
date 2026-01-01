@@ -49,7 +49,7 @@ jobs:
 
       # 3. 构建 Android APK
       - name: Build Android APK
-        uses: ProjectAliceDev/renpy-build-action@v1
+        uses: ProjectAliceDev/renpy-build-action@master
         with:
           # 指向项目根目录
           project_path: build_work/${{ env.PROJECT_NAME }} 
@@ -68,7 +68,7 @@ jobs:
 
       # 4. 构建 PC 版 (Win/Linux/Mac)
       - name: Build PC Distributions
-        uses: ProjectAliceDev/renpy-build-action@v1
+        uses: ProjectAliceDev/renpy-build-action@master
         with:
           project_path: build_work/${{ env.PROJECT_NAME }}
           renpy_version: ${{ env.RENPY_VERSION }}
@@ -78,7 +78,7 @@ jobs:
 
       # 5. 构建 Web 版
       - name: Build Web Version
-        uses: ProjectAliceDev/renpy-build-action@v1
+        uses: ProjectAliceDev/renpy-build-action@master
         with:
           project_path: build_work/${{ env.PROJECT_NAME }}
           renpy_version: ${{ env.RENPY_VERSION }}
