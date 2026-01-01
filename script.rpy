@@ -1,48 +1,10 @@
 define I = Character('我', color="#1a1a1a")#定义人物
 define npc = Character(None, kind=adv)
-define jitou =Character('锦桐',color="#b39c1f",image="jitou")
+define jitou =Character('锦桐',color="#b39c1f")
 define bw = Character('冰', color="#888888")
 define jige = Character('鸡哥', color="#4a90e2")
-
-image bedroom="bedroom_waifu2x_2x_2n_jpeg.png"#定义场景
-image homeopen="homeopen_waifu2x_2x_2n_jpeg.png"
-image homeclose="homeclose_waifu2x_2x_2n_jpeg.png"
-image CityStreet="street_waifu2x_2x_2n_jpeg.png"
-image tablefood="tablefood_waifu2x_2x_3n_png.png"
-image tablenofood="tablenofood_waifu2x_2x_3n_png.png"
-
-
-
-
-init python: #批量定义主播立绘
-    attires = ["decade", "dress", "shirt", "uniform"]
-    expressions = ["surprised", "happy", "sad", "angry"]
-    for a in attires:
-        for e in expressions:
-            renpy.image("zb %s %s" % (a, e), Transform("images/zb/zb_%s_%s.png" % (a, e), zoom=0.6))
-
-
-init python: #批量定义锦桐立绘
-    attires = ["decade", "dress", "shirt", "uniform"]
-    expressions = ["surprised", "happy", "sad", "angry"]
-    for a in attires:
-        for e in expressions:
-            renpy.image("jitou %s %s" % (a, e), Transform("images/jitou/jitou_%s_%s.png" % (a, e), zoom=0.6))
-
-init python: #批量定义鸡哥立绘
-    attires = ["decade", "xiaofu", "shirt", "uniform"]
-    expressions = ["chakoudai", "huanbao", "sad", "angry"]
-    for a in attires:
-        for e in expressions:
-            renpy.image("jige %s %s" % (a, e), Transform("images/jige/jige_%s_%s.png" % (a, e), zoom=0.6))
-
-init python: #批量定义兵王立绘
-    attires = ["dress", "dresshat", "shirt", "uniform"]
-    expressions = ["smile", "happy", "sad", "angry"]
-    for a in attires:
-        for e in expressions:
-            renpy.image("bw %s %s" % (a, e), Transform("images/bw/bw_%s_%s.png" % (a, e), zoom=0.6))
-
+define wz = Character('王子', color="#50e3c2")
+define zmw = Character('明薇', color="#9013fe")
 
 
 
@@ -120,23 +82,92 @@ label start:
     I "诶，电梯今天怎么这么快"
     I "顺便把垃圾倒了吧"
 
-    scene CityStreet at p1080p
+    scene street at p1080p
     with fade
     play music "轻松.mp3" volume 0.6 fadein 1.0
     I "呼…… 可算快到了，应该赶得上吧"
     npc "我正要过公路时，左肩突然被撞了一下"
-    show jitou decade surprised at hit_three,center:
-        ypos 2100
-
+    show jitou decade_surprised at hit_three,center:
+        ypos 1700
+        zoom 0.6
+    with fade
     jitou "啊~~~{w}\n对...对...对不起！{w}\n我没看路！"
     I "是锦桐吗，好久不见了"
+    show jitou decade at center:
+        ypos 1700
+        zoom 0.6
     jitou  "好巧啊"
     I "(这么多年过去，她还是老样子…… 不过聚会快开始了，先进去再叙旧吧)"
     I "我们赶紧进去吧，大家应该都到得差不多了"
 
     scene tablenofood at p1080p
+    with fade
+    show jige decade_huanbao at center:
+        ypos 2100
+        zoom 0.7
     with dissolve
-    show jige decade huanbao with fade
     jige "(看了看手表)"
-    jige "时间快到了，人都到齐了吗"
-    
+    jige "时间差不多了，人都到齐了吗"
+    I "好久不见，鸡哥"
+    jige "你们终于到了，其他人呢"
+
+    show jige decade_huanbao at left:
+        ypos 2100
+        xpos 200
+        zoom 0.7
+    with dissolve
+    show wz decade_normal at right:
+        ypos 1900  
+        zoom 0.6
+    with dissolve
+    wz "等一下，鸡霸发消息了"
+    wz "他说他那边堵车堵得厉害，短时间赶不过来，让我们先开始。"
+    jige "行，那就先这样吧，我去跟服务员说先上菜"
+    hide jige decade_huanbao
+    with dissolve
+    npc "鸡哥说完就站起身出门了"
+    wz "我出去来一根，等下再聊"
+    hide wz decade_normal
+    with dissolve
+    npc "这时，一道熟悉的声音传来"
+    show bw dress_smile at center:
+        ypos 1900
+        zoom 0.7
+    with Dissolve(1.0)
+    bw "嘿，好久不见啊"
+    bw "这几年过得怎么样？工作顺利吗？"
+    I "不太好，最近刚失业，找了快一个月工作了{w}\n现在就业市场竞争太激烈，工作挺难找的"
+    bw "看来大家都不容易啊"
+    bw "明薇最近也不太顺利，最近公司裁员，她差点也被裁掉"
+
+    show zmw decade_normal at left:
+        ypos 1900
+        zoom 0.6
+    with dissolve
+    zmw "(从旁边经过，听到自己的名字，停下脚步)"
+    zmw "(想说句话可又不知道该说什么)"
+    zmw "……"
+    I "明薇，坐这里吧，大家都很想你呢"
+    zmw "不了，我坐那边就好"
+    hide zmw decade_normal
+    with dissolve
+    npc "我和王冰相视一笑，毕竟明薇以前总是这样，性格有点孤僻"
+    hide bw dress_smile、
+    with dissolve
+    npc "后来大家聊起了各自的近况，气氛渐渐热络起来"
+    npc "刚才出去抽烟的王子也回来加入了谈话"
+    npc "听说他最近在做自由职业，接一些平面设计的单子"
+
+    I "王子你还会设计，说白了就是画本子吧"
+    show wz decade_happy at center:
+        ypos 1900
+        zoom 0.6
+    wz "哈哈，说得没错，不过我画的可比其他同人本子专业多了"
+    npc "这倒是真的，王子画的本子曾经也是上过不少展会的"
+    npc "不过要问我是怎么知道的{w}\n那就不方便透露了"
+
+    npc "(十分钟后)"
+    scene tablefood at p1080p
+    with dissolve
+    jige "菜终于上齐了，大家可以开饭了"
+
