@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  RENPY_VERSION: '8.4.3'
+  RENPY_VERSION: '8.3.0'
   PROJECT_NAME: 'SMS' # 你的项目英文名
   # 关键：解决 GitHub Runner 上 NDK 不兼容的问题，这是 Android 构建的常见要求
   ANDROID_NDK_HOME: ""
@@ -57,7 +57,7 @@ jobs:
           action: install
           version: ${{ env.RENPY_VERSION }}
           install_dir: ${{ runner.temp }}/renpy
-          dlcs: rapt
+          dlcs: android
           android_sdk: true
           # 关键：配置签名信息，让 Ren'Py 知道使用你的 key
           android_properties: |
