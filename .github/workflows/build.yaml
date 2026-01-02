@@ -21,7 +21,7 @@ jobs:
           mv ../game ../build
           mv ../build/game/android.json ../build/
           mv ../build .
-          ls && ls build
+          ls && ls build && ls build/game
           echo "game文件夹所在目录：$GITHUB_WORKSPACE/build"
           
       - name: 设置 JDK 21
@@ -32,7 +32,7 @@ jobs:
 
       - name: 初始化环境
         run: |
-          mv $GITHUB_WORKSPACE/build/game/renpy.zip .
+          mv $GITHUB_WORKSPACE/build/game/renpy.zip ./
           unzip -q renpy.zip
           rm renpy.zip
           echo '主目录：'
