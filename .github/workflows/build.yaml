@@ -58,7 +58,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/renpy
           mkdir $GITHUB_WORKSPACE/output-web
-          ./renpy.sh launcher web_build $GITHUB_WORKSPACE/build --no-update --destination $GITHUB_WORKSPACE/output-web
+          ./renpy.sh launcher web_build $GITHUB_WORKSPACE/build --destination $GITHUB_WORKSPACE/output-web
 
       - name: 上传Windows构建产物
         uses: actions/upload-artifact@v4
