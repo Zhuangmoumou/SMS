@@ -64,6 +64,7 @@ jobs:
             "sdk_root": "$GITHUB_WORKSPACE/android-sdk",
             "ndk_root": "$GITHUB_WORKSPACE/android-ndk"
           }
+          EOF
           
       - name: 导入 Android Keystore
         env:
