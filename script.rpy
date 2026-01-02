@@ -5,9 +5,25 @@ define bw = Character('冰', color="#888888")
 define jige = Character('鸡哥', color="#4a90e2")
 define wz = Character('王子', color="#50e3c2")
 define zmw = Character('明薇', color="#9013fe")
+define qf = Character('秋风', color="#f5a623")
+
+image blackbg = Solid("#000000") #定义黑色背景
+image whitebg = Solid("#FFFFFF") #定义白色背景
 
 
+transform shake_side: #定义侧向震动效果
+    linear 0.1 xoffset -10
+    linear 0.1 xoffset 10
+    linear 0.1 xoffset -5
+    linear 0.1 xoffset 5
+    linear 0.1 xoffset 0
+    repeat
 
+transform nod: #定义点头效果
+    yoffset 0  # 初始位置
+    easein 0.1 yoffset 15  # 向下移动（点头）
+    easeout 0.1 yoffset 0  # 回到原位
+    # 可以重复多次来模拟多次点头
 
 transform p1080p:#定义图片为1080p
     size (1920, 1080)  # 设置为1080p全高清分辨率
@@ -170,4 +186,67 @@ label start:
     scene tablefood at p1080p
     with dissolve
     jige "菜终于上齐了，大家可以开饭了"
+    npc "我坐下来，喝着茶的同时看着这些许久未见的老朋友们"
+    npc "(餐桌上的一边)"
+    show zb gete_normal at center:
+        ypos 2100
+        zoom 0.7
+    with dissolve
+    zb "这家餐厅的菜真好吃~~~~~{w}\n比高中食堂吃的强多了"
+    zb "(伸直胳膊去夹餐桌中间的菜)"
+    npc "主播一不小心将邻座的杯子碰倒了"
+    npc "杯中的果汁洒在了桌上"
+    show zb gete_nervous at center,shake_side:
+        ypos 2100
+        zoom 0.7
+    zb "啊…… 对不起对不起{w}\n我这就找纸巾擦！"
+    show zb gete_nervous at right:
+        ypos 2100
+        xpos 1600
+        zoom 0.7
+    show wz decade_surprised at left:
+        ypos 1900
+        xpos 200
+        zoom 0.6
+    with dissolve
+    wz "没事没事，我这边有手帕"
+    npc "王子从口袋掏出一张不到10cm见方的手帕"
+    npc "手一甩就把手帕盖在了洒了果汁的地方上"
+    npc "………{w}\n可惜并没有什么卵用"
+    show zb gete_smile at right:
+        ypos 2100
+        zoom 0.7
+    zb "哈哈，王子你好傻啊"
+    wz "哎呀，这都被你发现了"
+    npc "二人相视一笑"
+    hide zb gete_smile
+    hide wz decade_surprised
+    with dissolve
+    npc "(与此同时，餐桌的另一边)"
+    show jitou decade_red at center:
+        ypos 1700
+        zoom 0.6
+    with dissolve
+    jitou "(伸长胳膊够对面的橙汁瓶，指尖还差两厘米碰到瓶子)"
+    show qf decade_normal at left:
+        ypos 2000
+        xpos 200
+        zoom 0.6
+    qf "......."
+    npc "秋风坐在锦桐旁边，伸手拿起饮料瓶"
+    qf "给"
+    show jitou decade_smile at center,nod:
+        ypos 1700
+        zoom 0.6
+    jitou "啊谢谢！我还以为够得到呢"
+    hide jitou decade_smile
+    hide qf decade_normal
+    npc "我看着眼前的这些老朋友们"
+    npc "有人给对方夹菜，有人笑着说上学时的糗事，秋风还在帮锦桐拧瓶盖"
+    I "虽然已经过了这么多年，大家都变了些模样，有了不同的生活{w}\n但现在这样坐在一起聊天吃饭，又好似回到了毕业前的时光"
+    I "只不过那时候的分离，变成了现在的重聚而已……{w}\n这样真好啊"
+    npc "我举起茶杯，对着众人的方向轻轻碰了下空气"
+    scene whitebg
+    with dissolve
+
 
