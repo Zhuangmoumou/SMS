@@ -45,8 +45,11 @@ jobs:
           tar xzf android-studio-2025.2.2.8-linux.tar.gz && ls 
           wget -q https://dl.google.com/android/repository/android-ndk-r27d-linux.zip
           ls
-          unzip android-ndk-r27d-linux.zip && mv android-ndk-r27d android-ndk
+          unzip -q android-ndk-r27d-linux.zip && mv android-ndk-r27d android-ndk
+          ls android-sdk
+          echo '---------------------'
           ls android-ndk
+          mkdir ~/.renpy
           cat > ~/.renpy/android-keys.json << EOF
           {
             "keystore": "$GITHUB_WORKSPACE/build/android.keystore",
