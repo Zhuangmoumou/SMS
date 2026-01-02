@@ -32,16 +32,17 @@ jobs:
 
       - name: 初始化环境
         run: |
-          wget -q https://www.renpy.org/dl/8.5.1/renpy-8.5.1-sdk.tar.bz2
-          echo '下载完成：renpy.tar.gz'
-          tar xjf renpy-8.5.1-sdk.tar.bz2
-          ls
-          mv renpy-8.5.1-sdk renpy
-          rm renpy-8.5.1-sdk.tar.bz2
-          echo '主目录：'
+          #wget -q https://www.renpy.org/dl/8.5.1/renpy-8.5.1-sdk.tar.bz2
+          #echo '下载完成：renpy.tar.gz'
+          #tar xjf renpy-8.5.1-sdk.tar.bz2
+          #ls
+          #mv renpy-8.5.1-sdk renpy
+          #rm renpy-8.5.1-sdk.tar.bz2
+          #echo '主目录：'
           cd $GITHUB_WORKSPACE
           ls
           wget -q https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2025.2.2.8/android-studio-2025.2.2.8-linux.tar.gz
+          ls
           tar xzf android-studio-2025.2.2.8-linux.tar.gz && mv android-studio-2025.2.2.8-linux android-sdk
           wget -q https://dl.google.com/android/repository/android-ndk-r27d-linux.zip
           ls
