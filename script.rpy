@@ -7,51 +7,6 @@ define wz = Character('王子', color="#50e3c2")
 define zmw = Character('明薇', color="#9013fe")
 define qf = Character('秋风', color="#f5a623")
 
-<<<<<<< HEAD
-image bedroom="bedroom_waifu2x_2x_2n_jpeg.png"#定义场景
-image homeopen="homeopen_waifu2x_2x_2n_jpeg.png"
-image homeclose="homeclose_waifu2x_2x_2n_jpeg.png"
-image CityStreet="street_waifu2x_2x_2n_jpeg.png"
-image tablefood="tablefood_waifu2x_2x_3n_png.png"
-image tablenofood="tablenofood_waifu2x_2x_3n_png.png"
-
-
-
-#======================人物立绘定义块====================
-init python:
-    # 定义所有角色的配置数据
-    # 格式: "角色名": {"cloth": [服装], "action": [表情]}
-    char_config = {
-        "zb": {
-            "cloth": ["decade", "dress", "shirt", "uniform"],
-            "action": ["surprised", "happy", "sad", "angry"]
-        },
-        "jitou": {
-            "cloth": ["decade", "dress", "shirt", "uniform"],
-            "action": ["surprised", "happy", "sad", "angry"]
-        },
-        "jige": {
-            "cloth": ["decade", "xiaofu", "shirt", "uniform"],
-            "action": ["chakoudai", "huanbao", "sad", "angry"]
-        },
-        "bw": {
-            "cloth": ["dress", "dresshat", "shirt", "uniform"],
-            "action": ["smile", "happy", "sad", "angry"]
-        }
-    }
-
-    # 统一循环处理
-    for name, config in char_configs.items():
-        for a in config["attires"]:
-            for e in config["expressions"]:
-                renpy.image(
-                    "{} {} {}".format(name, a, e), 
-                    Transform("images/{}/{}_{}_{}.png".format(name, name, a, e), zoom=0.6)
-                )
-
-
-#======================================================
-=======
 image blackbg = Solid("#000000") #定义黑色背景
 image whitebg = Solid("#FFFFFF") #定义白色背景
 
@@ -63,7 +18,6 @@ transform shake_side: #定义侧向震动效果
     linear 0.1 xoffset 5
     linear 0.1 xoffset 0
     repeat
->>>>>>> b5e6bb432d6c777473348a35d08c8b5e8b2ffa64
 
 transform nod: #定义点头效果
     yoffset 0  # 初始位置
@@ -294,8 +248,5 @@ label start:
     npc "我举起茶杯，对着众人的方向轻轻碰了下空气"
     scene whitebg
     with dissolve
-<<<<<<< HEAD
-=======
 
 
->>>>>>> b5e6bb432d6c777473348a35d08c8b5e8b2ffa64
