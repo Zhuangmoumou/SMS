@@ -38,18 +38,33 @@ jobs:
           ls
           mv renpy-8.5.1-sdk renpy
           rm renpy-8.5.1-sdk.tar.bz2
-          ls
-          cd renpy
-          wget -q https://www.renpy.org/dl/8.5.1/renpy-8.5.1-rapt.zip
-          echo '下载完成：rapt'
-          unzip renpy-8.5.1-rapt.zip
-          rm renpy-8.5.1-rapt.zip
-          cp -r rapt/* ./
-          echo '当前renpy目录：'
-          ls
           echo '主目录：'
           cd $GITHUB_WORKSPACE
           ls
+          wget -q https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2025.2.2.8/android-studio-2025.2.2.8-linux.tar.gz
+          tar xzf android-studio-2025.2.2.8-linux.tar.gz && mv android-studio android-sdk
+          wget -q https://dl.google.com/android/repository/android-ndk-r27d-linux.zip
+          ls
+          unzip -q android-ndk-r27d-linux.zip && mv android-ndk-r27d android-ndk
+          ls android-sdk
+          echo '---------------------'
+          ls android-ndk
+          mkdir ~/.renpy
+          cat > ~/.renpy/android-keys.json << EOF
+          {
+            "keystore": "$GITHUB_WORKSPACE/build/android.keystore",
+            "keystore_password": "$ANDROID_KEYSTORE_PASSWORD",
+            "keyalias": "$ANDROID_KEY_ALIAS",
+            "key_password": "$ANDROID_KEY_PASSWORD",
+          }
+          EOF
+          
+          cat > ~/.renpy/android.json << EOF
+          {
+            "sdk_root": "$GITHUB_WORKSPACE/android-sdk",
+            "ndk_root": "$GITHUB_WORKSPACE/android-ndk"
+          }
+          EOF
           
       - name: 导入 Android Keystore
         env:
