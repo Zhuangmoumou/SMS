@@ -1,0 +1,73 @@
+name: Renpy Build
+
+on:
+  # 1. 当代码推送到 main 分支时触发
+  push:
+    branches:
+      - main
+  
+  # 2. 允许手动触发
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # 任务步骤
+    steps:
+      # 步骤 1: 检出代码
+      - name: 检出仓库代码
+        uses: actions/checkout@v4
+
+      - name: 调整目录结构
+        run: |
+          mkdir ../game && mkdir ../build
+          mv ./* ../game
+          ls
+          mv ../game ../build
+          mv ../build/game/android.json ../build/
+          mv ../build .
+          ls && ls build
+          echo "game文件夹所在目录：$GITHUB_WORKSPACE/build"
+
+      - name: 初始化环境
+        run: |
+          wget -q https://www.renpy.org/dl/8.5.1/renpy-8.5.1-sdk.tar.bz2
+          echo '下载完成：renpy.tar.gz'
+          tar xjf renpy-8.5.1-sdk.tar.bz2
+          ls
+          mv renpy-8.5.1-sdk renpy
+          rm renpy-8.5.1-sdk.tar.bz2
+          echo '主目录：'
+          cd $GITHUB_WORKSPACE
+          
+
+      - name: 设置 JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: 构建Windows版本
+        run: |
+          cd $GITHUB_WORKSPACE/renpy
+          mkdir $GITHUB_WORKSPACE/output-win
+          ./renpy.sh launcher distribute $GITHUB_WORKSPACE/build --package win --no-update --destination $GITHUB_WORKSPACE/output-win
+          
+      - name: 构建Web版本
+        run: |
+          cd $GITHUB_WORKSPACE/renpy
+          mkdir $GITHUB_WORKSPACE/output-web
+          ./renpy.sh launcher web_build $GITHUB_WORKSPACE/build --destination $GITHUB_WORKSPACE/output-web
+
+      - name: 上传Windows构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: renpy-build-output-win
+          path: ${{ github.workspace }}/output-win/*
+          
+      - name: 上传Web构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: renpy-build-output-web
+          path: ${{ github.workspace }}/output-web/*
