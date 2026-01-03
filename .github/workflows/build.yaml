@@ -12,9 +12,6 @@ jobs:
       # 步骤 1: 检出代码
       - name: 检出仓库代码
         uses: actions/checkout@v4
-        run: |
-          ls
-
           
       - name: Build VN project
         uses: ProjectAliceDev/renpy-build-action@master
