@@ -1,73 +1,54 @@
-name: Renpy Build
+name: RenPy Build
 
 on:
-  # 1. 当代码推送到 main 分支时触发
-  push:
-    branches:
-      - main
-  
-  # 2. 允许手动触发
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    # 任务步骤
     steps:
       # 步骤 1: 检出代码
       - name: 检出仓库代码
         uses: actions/checkout@v4
-
-      - name: 调整目录结构
+      
+      - name: 调整目录
         run: |
-          mkdir ../game && mkdir ../build
+          rm -r 素材
+          mkdir ../game
           mv ./* ../game
-          ls
-          mv ../game ../build
-          mv ../build/game/android.json ../build/
-          mv ../build .
-          ls && ls build
-          echo "game文件夹所在目录：$GITHUB_WORKSPACE/build"
-
-      - name: 初始化环境
-        run: |
-          wget -q https://www.renpy.org/dl/8.5.1/renpy-8.5.1-sdk.tar.bz2
-          echo '下载完成：renpy.tar.gz'
-          tar xjf renpy-8.5.1-sdk.tar.bz2
-          ls
-          mv renpy-8.5.1-sdk renpy
-          rm renpy-8.5.1-sdk.tar.bz2
-          echo '主目录：'
-          cd $GITHUB_WORKSPACE
+          mv ../game .
           
-
-      - name: 设置 JDK 21
-        uses: actions/setup-java@v4
+      # 步骤 2: 构建项目，并设置id以便引用输出
+      - name: Build VN project
+        id: renpy-build  # 设置id很重要！
+        uses: Zhuangmoumou/renpy-build-action@master
         with:
-          java-version: '21'
-          distribution: 'temurin'
-
-      - name: 构建Windows版本
+          sdk-version: '8.5.0'
+          project-dir: '.'
+          package: 'web'
+          add-steam-lib: false
+        env:
+          SDL_AUDIODRIVER: dummy
+          SDL_VIDEODRIVER: dummy
+      
+      # 步骤 3: 显示输出变量
+      - name: 显示构建信息
         run: |
-          cd $GITHUB_WORKSPACE/renpy
-          mkdir $GITHUB_WORKSPACE/output-win
-          ./renpy.sh launcher distribute $GITHUB_WORKSPACE/build --package win --no-update --destination $GITHUB_WORKSPACE/output-win
-          
-#      - name: 构建Web版本
-#        run: |
-#          cd $GITHUB_WORKSPACE/renpy
-#          mkdir $GITHUB_WORKSPACE/output-web
-#          ./renpy.sh launcher web_build $GITHUB_WORKSPACE/build --destination $GITHUB_WORKSPACE/output-web
-
-      - name: 上传Windows构建产物
+          echo "构建目录: ${{ steps.renpy-build.outputs.dir }}"
+          echo "版本号: ${{ steps.renpy-build.outputs.version }}"
+      
+      # 步骤 4: 列出构建目录中的文件
+      - name: 列出构建产物
+        run: |
+          echo "=== 构建目录内容 ===：${{ steps.renpy-build.outputs.dir }}"
+          ls "${{ steps.renpy-build.outputs.dir }}" || echo "目录不存在"
+          echo "=== 工作区内容 ==="
+          ls -la "${{ github.workspace }}" || echo "工作区为空"
+      
+      # 步骤 5: 上传构建产物（改进版）
+      - name: 上传构建产物
         uses: actions/upload-artifact@v4
         with:
-          name: renpy-build-output-win
-          path: ${{ github.workspace }}/output-win/*
-          
-#      - name: 上传Web构建产物
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: renpy-build-output-web
-#          path: ${{ github.workspace }}/output-web/*
+          name: renpy-build-output
+          path: ./SMS-*-dists/*
