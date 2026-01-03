@@ -37,8 +37,8 @@ jobs:
       # 步骤 4: 列出构建目录中的文件
       - name: 列出构建产物
         run: |
-          echo "=== 构建目录内容 ==="
-          ls -la "${{ steps.renpy-build.outputs.dir }}" || echo "目录不存在"
+          echo "=== 构建目录内容 ===：${{ steps.renpy-build.outputs.dir }}"
+          ls "${{ steps.renpy-build.outputs.dir }}" || echo "目录不存在"
           echo "=== 工作区内容 ==="
           ls -la "${{ github.workspace }}" || echo "工作区为空"
       
@@ -47,4 +47,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: renpy-build-output
-          path: ./
+          path: ${{ steps.renpy-build.outputs.dir }}/*
