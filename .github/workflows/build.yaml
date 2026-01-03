@@ -19,10 +19,7 @@ jobs:
         with:
           sdk-version: '8.5.0'
           project-dir: '.'
-          package: |
-            win
-            web
-            android
+          package: ['win','web','android']
           add-steam-lib: false
         env:
           SDL_AUDIODRIVER: dummy
@@ -47,4 +44,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: renpy-build-output
-          path: ${{ steps.renpy-build.outputs.dir }}/*
+          path: ./SMS-*-dists/*
