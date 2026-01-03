@@ -7,13 +7,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # 任务步骤
     steps:
       # 步骤 1: 检出代码
       - name: 检出仓库代码
         uses: actions/checkout@v4
-          
+      
+      # 步骤 2: 构建项目，并设置id以便引用输出
       - name: Build VN project
+        id: renpy-build  # 设置id很重要！
         uses: ProjectAliceDev/renpy-build-action@master
         with:
           sdk-version: '8.5.0'
@@ -22,13 +23,28 @@ jobs:
             win
             web
             android
-          dir: ${{ github.workspace }}/output
+          add-steam-lib: false
         env:
           SDL_AUDIODRIVER: dummy
           SDL_VIDEODRIVER: dummy
-
+      
+      # 步骤 3: 显示输出变量
+      - name: 显示构建信息
+        run: |
+          echo "构建目录: ${{ steps.renpy-build.outputs.dir }}"
+          echo "版本号: ${{ steps.renpy-build.outputs.version }}"
+      
+      # 步骤 4: 列出构建目录中的文件
+      - name: 列出构建产物
+        run: |
+          echo "=== 构建目录内容 ==="
+          ls -la "${{ steps.renpy-build.outputs.dir }}" || echo "目录不存在"
+          echo "=== 工作区内容 ==="
+          ls -la "${{ github.workspace }}" || echo "工作区为空"
+      
+      # 步骤 5: 上传构建产物（改进版）
       - name: 上传构建产物
         uses: actions/upload-artifact@v4
         with:
           name: renpy-build-output
-          path: ${{ github.workspace }}/output/*
+          path: ${{ steps.renpy-build.outputs.dir }}/
