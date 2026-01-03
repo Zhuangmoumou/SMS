@@ -12,6 +12,12 @@ jobs:
       - name: 检出仓库代码
         uses: actions/checkout@v4
       
+      - name: 调整目录
+        run: |
+          mkdir ../game
+          mv ./* ../game
+          mv ../game .
+          
       # 步骤 2: 构建项目，并设置id以便引用输出
       - name: Build VN project
         id: renpy-build  # 设置id很重要！
@@ -19,7 +25,7 @@ jobs:
         with:
           sdk-version: '8.5.0'
           project-dir: '.'
-          package: 'android'
+          package: 'web'
           add-steam-lib: false
         env:
           SDL_AUDIODRIVER: dummy
