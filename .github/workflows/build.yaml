@@ -1,4 +1,4 @@
-name: Renpy Build
+name: Build
 
 on:
   workflow_dispatch:
@@ -13,16 +13,7 @@ jobs:
       - name: 检出仓库代码
         uses: actions/checkout@v4
 
-      - name: 调整目录结构
-        run: |
-          mkdir ../game && mkdir ../build
-          mv ./* ../game
-          ls
-          mv ../game ../build
-          mv ../build/game/android.json ../build/
-          mv ../build .
-          ls && ls build && ls build/game
-          echo "game文件夹所在目录：$GITHUB_WORKSPACE/build"
+
           
       - name: Build VN project
         uses: ProjectAliceDev/renpy-build-action@master
