@@ -29,7 +29,10 @@ jobs:
         with:
           sdk-version: '8.5.0'
           project-dir: '${{ github.workspace }}/build'
-          package: ["win", "web", "android"]
+          package: |
+            win
+            web
+            android
           dir: ${{ github.workspace }}/output
         env:
           SDL_AUDIODRIVER: dummy
