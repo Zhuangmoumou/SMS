@@ -24,53 +24,19 @@ jobs:
           ls && ls build && ls build/game
           echo "game文件夹所在目录：$GITHUB_WORKSPACE/build"
           
-      - name: 设置 JDK 21
-        uses: actions/setup-java@v4
+      - name: Build VN project
+        uses: ProjectAliceDev/renpy-build-action@master
         with:
-          java-version: '21'
-          distribution: 'temurin'
+          sdk-version: '8.5.0'
+          project-dir: '${{ github_workspace }}/build'
+          package: ['win', 'web', 'android']
+          dir: ${{ github_workspace }}/output
+        env:
+          SDL_AUDIODRIVER: dummy
+          SDL_VIDEODRIVER: dummy
 
-      - name: 初始化环境
-        run: |
-          mv $GITHUB_WORKSPACE/build/game/renpy.zip ./
-          unzip -q renpy.zip
-          rm renpy.zip
-          echo '主目录：'
-          cd $GITHUB_WORKSPACE
-
-
-      - name: 构建Windows版本
-        run: |
-          cd $GITHUB_WORKSPACE/renpy
-          mkdir $GITHUB_WORKSPACE/output-win
-          ./renpy.sh launcher distribute $GITHUB_WORKSPACE/build --package win --no-update --destination $GITHUB_WORKSPACE/output-win
-          
-#      - name: 构建Web版本
-#        run: |
-#          cd $GITHUB_WORKSPACE/renpy
-#          mkdir $GITHUB_WORKSPACE/output-web
-#          ./renpy.sh launcher web_build $GITHUB_WORKSPACE/build --destination $GITHUB_WORKSPACE/output-web
-
-      - name: 构建Android版本
-        run: |
-          cd $GITHUB_WORKSPACE/renpy
-          mkdir $GITHUB_WORKSPACE/output-android
-          ./renpy.sh launcher android_build $GITHUB_WORKSPACE/build --destination $GITHUB_WORKSPACE/output-android
-          
-      - name: 上传Windows构建产物
+      - name: 上传构建产物
         uses: actions/upload-artifact@v4
         with:
-          name: renpy-build-output-win
-          path: ${{ github.workspace }}/output-win/*
-          
-#      - name: 上传Web构建产物
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: renpy-build-output-web
-#          path: ${{ github.workspace }}/output-web/*
-
-      - name: 上传Android构建产物
-        uses: actions/upload-artifact@v4
-        with:
-          name: renpy-build-output-android
-          path: ${{ github.workspace }}/output-android/*
+          name: renpy-build-output
+          path: ${{ github.workspace }}/output/*

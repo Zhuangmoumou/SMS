@@ -4,7 +4,16 @@
 
 init offset = -1
 
+transform menu_slide_in_left:
+    on show:
+        xoffset -600 alpha 0.0   # 初始状态：向左偏移600像素，完全透明
+        easeout 0.8 xoffset 0 alpha 1.0 # 在0.8秒内缓出移动到原位，并变为不透明
 
+# 2. 背景白色淡入动画：白色遮罩从不透明变为透明
+transform white_fade_intro:
+    on show:
+        alpha 1.0                # 初始状态：完全不透明（纯白）
+        linear 1.0 alpha 0.0     # 在1.0秒内匀速变为完全透明
 ################################################################################
 ## 样式
 ################################################################################
@@ -347,13 +356,19 @@ screen main_menu():
 
     add gui.main_menu_background:
         size (config.screen_width, config.screen_height)
-
+    #添加白色背景用于淡出
+    add Solid("#ffffff") at white_fade_intro:
+        size (config.screen_width, config.screen_height)
+    
     ## 此空框可使标题菜单变暗。
     frame:
         style "main_menu_frame"
 
     ## use 语句将其他的屏幕包含进此屏幕。标题屏幕的实际内容在导航屏幕中。
-    use navigation
+    fixed:
+        at menu_slide_in_left
+        use navigation
+
 
     if gui.show_name:
 
