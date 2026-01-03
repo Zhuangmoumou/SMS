@@ -19,7 +19,7 @@ jobs:
         with:
           sdk-version: '8.5.0'
           project-dir: '.'
-          package: ['win','web','android']
+          package: 'android'
           add-steam-lib: false
         env:
           SDL_AUDIODRIVER: dummy
