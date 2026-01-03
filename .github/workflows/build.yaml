@@ -28,8 +28,8 @@ jobs:
         uses: ProjectAliceDev/renpy-build-action@master
         with:
           sdk-version: '8.5.0'
-          project-dir: '${{ github_workspace }}/build'
-          package: ['win', 'web', 'android']
+          project-dir: '${{ github.workspace }}/build'
+          package: ["win", "web", "android"]
           dir: ${{ github_workspace }}/output
         env:
           SDL_AUDIODRIVER: dummy
