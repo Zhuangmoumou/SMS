@@ -14,6 +14,7 @@ jobs:
       
       - name: 调整目录
         run: |
+          rm -r 素材
           mkdir ../game
           mv ./* ../game
           mv ../game .
