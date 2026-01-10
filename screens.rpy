@@ -278,6 +278,11 @@ style quick_button_text:
 ##
 ## 该屏幕包含在标题菜单和游戏菜单中，并提供导航到其他菜单，以及启动游戏。
 
+transform button_easeout(delay_time=0.0):
+    xoffset -500
+    pause delay_time
+    easeout 0.5 xoffset 0
+
 screen navigation():
 
     vbox:
@@ -290,7 +295,7 @@ screen navigation():
 
         if main_menu:
 
-            textbutton _("开始游戏") action Start()
+            textbutton _("开始游戏") action Start() at button_easeout(0.1)
 
         else:
 
@@ -298,29 +303,27 @@ screen navigation():
 
             textbutton _("保存") action ShowMenu("save")
 
-        textbutton _("读取游戏") action ShowMenu("load")
-
-        textbutton _("设置") action ShowMenu("preferences")
+        textbutton _("读取游戏") action ShowMenu("load") at button_easeout(0.2)
+        textbutton _("设置") action ShowMenu("preferences") at button_easeout(0.3)
 
         if _in_replay:
 
-            textbutton _("结束回放") action EndReplay(confirm=True)
-
+            textbutton _("结束回放") action EndReplay(confirm=True) at button_easeout(0.4)
         elif not main_menu:
 
             textbutton _("标题菜单") action MainMenu()
 
-        textbutton _("关于") action ShowMenu("about")
+        textbutton _("关于") action ShowMenu("about") at button_easeout(0.4)
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
             ## “帮助”对移动设备来说并非必需或相关。
-            textbutton _("帮助") action ShowMenu("help")
+            textbutton _("帮助") action ShowMenu("help") at button_easeout(0.5)
 
         if renpy.variant("pc"):
 
             ## 退出按钮在 iOS 上是被禁止使用的，在安卓和网页上也不是必要的。
-            textbutton _("退出") action Quit(confirm=not main_menu)
+            textbutton _("退出") action Quit(confirm=not main_menu) at button_easeout(0.6)
 
 
 style navigation_button is gui_button
