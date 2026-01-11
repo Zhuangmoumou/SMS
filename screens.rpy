@@ -299,16 +299,16 @@ screen navigation():
 
         else:
 
-            textbutton _("历史") action ShowMenu("history")
+            textbutton _("历史") action ShowMenu("history") at button_easeout(0.1)
 
-            textbutton _("保存") action ShowMenu("save")
+            textbutton _("保存") action ShowMenu("save") at button_easeout(0.2)
 
         textbutton _("读取游戏") action ShowMenu("load") at button_easeout(0.2)
         textbutton _("设置") action ShowMenu("preferences") at button_easeout(0.3)
 
         if _in_replay:
 
-            textbutton _("结束回放") action EndReplay(confirm=True) at button_easeout(0.4)
+            textbutton _("结束回放") action EndReplay(confirm=True)
         elif not main_menu:
 
             textbutton _("标题菜单") action MainMenu()
