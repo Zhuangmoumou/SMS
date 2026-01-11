@@ -56,13 +56,13 @@ define gui.interface_text_color = '#404040'
 ## 字体和字体大小 #####################################################################
 
 ## 游戏内文本使用的字体。
-define gui.text_font = "SmileySans-Oblique.ttf"
+define gui.text_font = "PingFangSC-Medium.ttf"
 
 ## 角色名称使用的字体。
 define gui.name_text_font = "PingFangSC-Medium.ttf"
 
 ## 游戏外文本使用的字体。
-define gui.interface_text_font = "SmileySans-Oblique.ttf"
+define gui.interface_text_font = "PingFangSC-Medium.ttf"
 
 ## 普通对话文本的大小。
 define gui.text_size = 30
