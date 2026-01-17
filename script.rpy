@@ -1,11 +1,13 @@
-define I = Character('我', color="#1a1a1a")#定义人物
+define I = Character('我', color="#ff724832")#定义人物
 define npc = Character(None, kind=adv)
-define jitou =Character('锦桐',color="#b39c1f")
+define jitou =Character('靳桐',color="#fffb966e")
 define bw = Character('冰', color="#888888")
 define jige = Character('鸡哥', color="#4a90e2")
-define wz = Character('王子', color="#50e3c2", zoom=1.5)
-define zmw = Character('明薇', color="#9013fe")
+define wz = Character('王子', color="#50e3c2")
+define zmw = Character('明薇', color="#ff6a4c9c")
 define qf = Character('秋风', color="#f5a623")
+define zb = Character('烛悦', color="#ff4c8dae")
+
 
 image blackbg = Solid("#000000") #定义黑色背景
 image whitebg = Solid("#FFFFFF") #定义白色背景
@@ -115,10 +117,12 @@ label start:
     show jitou decade at center:
         ypos 1700
         zoom 0.6
-    jitou  "好巧啊"
+    jitou "好巧啊"
+    show jitou decade at center
     I "(这么多年过去，她还是老样子…… 不过聚会快开始了，先进去再叙旧吧)"
     I "我们赶紧进去吧，大家应该都到得差不多了"
-
+    jitou "嗯，我们走吧"
+    
     scene tablenofood at p1080p
     with fade
     show jige decade_huanbao at center:
