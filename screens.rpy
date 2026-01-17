@@ -286,7 +286,8 @@ default exiting = False
 screen navigation():
     
     default button_action = None
-    timer 2.4 action button_action
+    if exiting:
+        timer 2.4 action button_action
     vbox:
         style_prefix "navigation"
 
@@ -297,7 +298,7 @@ screen navigation():
 
         if main_menu:
 
-            textbutton _("开始游戏") action [SetVariable("exiting", True), SetVariable("button_action", Start())] at button_atl(1, exiting)
+            textbutton _("开始游戏") action [SetVariable("exiting", True), SetScreenVariable("button_action", Start())] at button_atl(1, exiting)
 
         else:
 
