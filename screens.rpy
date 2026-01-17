@@ -289,22 +289,31 @@ style quick_button_text:
 
 # 按钮easein_back进入
 transform button_atl(idx):
-    xoffset -300
-    pause (idx * 0.2)
-    easein_back 0.2 xoffset 0
+    on show:
+        xoffset -300
+        pause (idx * 0.2)
+        easein_back 0.2 xoffset 0
 
 # 按钮放大
-transform hover_movement:
+transform nav_button_eff(idx):
+    # 1. 进场动画 (on show 确保它在按钮出现时优先执行)
+    on show:
+        xoffset -300
+        pause (idx * 0.2)
+        easein_back 0.2 xoffset 0
+    
+    # 2. 悬浮交互 (on hover / on idle)
     on hover:
         parallel:
-            easein 0.2 xoffset -10  # 向左移动10像素
+            easein 0.2 xoffset -10  # 悬浮时向左移
         parallel:
-            easein 0.2 zoom 1.05   # 稍微放大
+            easein 0.2 zoom 1.05    # 悬浮时放大
+            
     on idle:
         parallel:
-            easeout 0.2 xoffset 0
+            easeout 0.2 xoffset 0   # 离开时恢复位置
         parallel:
-            easeout 0.2 zoom 1.0
+            easeout 0.2 zoom 1.0    # 离开时恢复大小
 
 
 screen navigation():
@@ -316,15 +325,15 @@ screen navigation():
         spacing gui.navigation_spacing
 
         if main_menu:
-            textbutton _("开始游戏") action Start() at [button_atl(1), hover_movement]
+            textbutton _("开始游戏") action Start() at nav_button_eff(1)
         else:
-            textbutton _("历史") action ShowMenu("history") at [button_atl(1), hover_movement]
+            textbutton _("历史") action ShowMenu("history") at nav_button_eff(1)
 
-            textbutton _("保存") action ShowMenu("save") at [button_atl(2), hover_movement]
+            textbutton _("保存") action ShowMenu("save") at nav_button_eff(2)
 
-        textbutton _("读取游戏") action ShowMenu("load") at [button_atl(2), hover_movement]
+        textbutton _("读取游戏") action ShowMenu("load") at nav_button_eff(2)
 
-        textbutton _("设置") action ShowMenu("preferences") at [button_atl(3), hover_movement]
+        textbutton _("设置") action ShowMenu("preferences") at nav_button_eff(3)
         if _in_replay:
 
             textbutton _("结束回放") action EndReplay(confirm=True) at hover_movement
@@ -332,17 +341,17 @@ screen navigation():
 
             textbutton _("标题菜单") action MainMenu() at hover_movement
 
-        textbutton _("关于") action ShowMenu("about") at [button_atl(4), hover_movement]
+        textbutton _("关于") action ShowMenu("about") at nav_button_eff(4)
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
             ## “帮助”对移动设备来说并非必需或相关。
-            textbutton _("帮助") action ShowMenu("help") at [button_atl(5), hover_movement]
+            textbutton _("帮助") action ShowMenu("help") at nav_button_eff(5)
 
         if renpy.variant("pc"):
 
             ## 退出按钮在 iOS 上是被禁止使用的，在安卓和网页上也不是必要的。
-            textbutton _("退出") action Quit(confirm=not main_menu) at [button_atl(6), hover_movement]
+            textbutton _("退出") action Quit(confirm=not main_menu) at nav_button_eff(6)
 
 
 style navigation_button is gui_button
