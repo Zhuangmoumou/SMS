@@ -306,6 +306,7 @@ transform hover_movement:
         parallel:
             easeout 0.2 zoom 1.0
 
+
 screen navigation():
 
     vbox:
@@ -317,13 +318,13 @@ screen navigation():
         if main_menu:
             textbutton _("开始游戏") action Start() at button_atl(1)
         else:
-            textbutton _("历史") action ShowMenu("history") at At(button_atl(1), hover_movement)
+            textbutton _("历史") action ShowMenu("history") at button_atl(1), hover_movement
 
-            textbutton _("保存") action ShowMenu("save") at At(button_atl(2), hover_movement)
+            textbutton _("保存") action ShowMenu("save") at button_atl(2), hover_movement
 
-        textbutton _("读取游戏") action ShowMenu("load") at At(button_atl(2), hover_movement)
+        textbutton _("读取游戏") action ShowMenu("load") at button_atl(2), hover_movement
 
-        textbutton _("设置") action ShowMenu("preferences") at At(button_atl(3), hover_movement)
+        textbutton _("设置") action ShowMenu("preferences") at button_atl(3), hover_movement
         if _in_replay:
 
             textbutton _("结束回放") action EndReplay(confirm=True) at hover_movement
@@ -331,17 +332,17 @@ screen navigation():
 
             textbutton _("标题菜单") action MainMenu() at hover_movement
 
-        textbutton _("关于") action ShowMenu("about") at At(button_atl(4), hover_movement)
+        textbutton _("关于") action ShowMenu("about") at button_atl(4), hover_movement
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
             ## “帮助”对移动设备来说并非必需或相关。
-            textbutton _("帮助") action ShowMenu("help") at At(button_atl(5), hover_movement)
+            textbutton _("帮助") action ShowMenu("help") at button_atl(5), hover_movement
 
         if renpy.variant("pc"):
 
             ## 退出按钮在 iOS 上是被禁止使用的，在安卓和网页上也不是必要的。
-            textbutton _("退出") action Quit(confirm=not main_menu) at At(button_atl(6), hover_movement)
+            textbutton _("退出") action Quit(confirm=not main_menu) at button_atl(6), hover_movement
 
 
 style navigation_button is gui_button
@@ -397,7 +398,7 @@ style main_menu_version is main_menu_text
 style main_menu_frame:
     xsize 420
     yfill True
-    background At("gui/overlay/main_menu.png", button_atl(0))
+    background At("gui/overlay/main_menu.png", button_atl(0.1))
 
 style main_menu_vbox:
     xalign 1.0
