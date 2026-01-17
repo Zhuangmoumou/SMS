@@ -292,17 +292,17 @@ style quick_button_text:
 ################################################################################
 
 # 1. 外层容器专用：入场动画 (只负责飞进来，不做任何交互)
-transform nav_enter_anim(idx):
-    # 初始状态：透明，位于左侧 -300 像素
+transform nav_enter_anim(idx, isOverlay=False):
+    # 初始状态：透明，位于左侧 -200 像素
     alpha 0.0
-    xoffset -300
+    xoffset -200
     
     # 根据 idx 计算延迟，形成阶梯效果 (0.1秒间隔比较干脆，0.2秒比较优雅，可自行调整)
-    pause (idx * 0.15)
+    pause (idx * 0.10)
     
     # 飞入并显形
     parallel:
-        easein_back 0.4 xoffset 0
+        ease 0.3 xoffset 0
     parallel:
         linear 0.3 alpha 1.0
 
@@ -489,7 +489,7 @@ style main_menu_version is main_menu_text
 style main_menu_frame:
     xsize 420
     yfill True
-    background "gui/overlay/main_menu.png"
+    background At("gui/overlay/main_menu.png", nav_enter_anim(0))
 
 style main_menu_vbox:
     xalign 1.0
@@ -579,8 +579,8 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
 
     textbutton _("返回"):
         style "return_button"
-
         action Return()
+        at nav_hover_anim
 
     label title
 
