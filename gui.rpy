@@ -65,13 +65,13 @@ define gui.name_text_font = "LXGWWenKai-Medium.ttf"
 define gui.interface_text_font = "LXGWWenKai-Medium.ttf"
 
 ## 普通对话文本的大小。
-define gui.text_size = 27
+define gui.text_size = 29
 
 ## 角色名称的大小。
-define gui.name_text_size = 35
+define gui.name_text_size = 36
 
 ## 游戏用户界面中文本的大小。
-define gui.interface_text_size = 32
+define gui.interface_text_size = 33
 
 ## 游戏用户界面中标签的大小。
 define gui.label_text_size = 36

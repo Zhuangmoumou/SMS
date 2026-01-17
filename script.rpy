@@ -110,18 +110,18 @@ label start:
     npc "我正要过公路时，左肩突然被撞了一下"
     show jitou decade_surprised at hit_three,center:
         ypos 1700
-        zoom 0.6
+        zoom 0.3
     with fade
     jitou "啊~~~{w}\n对...对...对不起！{w}\n我没看路！"
     I "啊...没事"
     I "欸？{w}\n是锦桐吗，好久不见了"
     show jitou decade at center:
         ypos 1700
-        zoom 0.6
+        zoom 0.3
     jitou "欸...欸？\n好巧啊，在这撞到你"
     show jitou decade at center:
         ypos 1700
-        zoom 0.6
+        zoom 0.3
     I "(这么多年过去，她还是老样子…… 不过聚会快开始了，先进去再叙旧吧)"
     I "我们赶紧进去吧，大家应该都到得差不多了"
     jitou "嗯，我们走吧"
@@ -130,7 +130,7 @@ label start:
     with fade
     show jige decade_huanbao at center:
         ypos 2100
-        zoom 0.7
+        zoom 0.3
     with dissolve
     jige "(看了看手表)"
     jige "时间差不多了，人都到齐了吗"
@@ -140,11 +140,11 @@ label start:
     show jige decade_huanbao at left:
         ypos 2100
         xpos 200
-        zoom 0.7
+        zoom 0.3
     with dissolve
     show wz decade_normal at right:
         ypos 1900  
-        zoom 0.6
+        zoom 0.7
     with dissolve
     wz "等一下，鸡霸发消息了"
     wz "他说他那边堵车堵得厉害，短时间赶不过来，让我们先开始。"
@@ -158,7 +158,7 @@ label start:
     npc "这时，一道熟悉的声音传来"
     show bw dress_smile at center:
         ypos 1900
-        zoom 0.7
+        zoom 0.3
     with Dissolve(1.0)
     bw "嘿，好久不见啊"
     bw "这几年过得怎么样？工作顺利吗？"
@@ -200,7 +200,7 @@ label start:
     npc "(餐桌上的一边)"
     show zb gete_normal at center:
         ypos 2100
-        zoom 0.7
+        zoom 0.3
     with dissolve
     zb "这家餐厅的菜真好吃~~~~~{w}\n比高中食堂吃的强多了"
     zb "(伸直胳膊去夹餐桌中间的菜)"
@@ -208,12 +208,12 @@ label start:
     npc "杯中的果汁洒在了桌上"
     show zb gete_nervous at center,shake_side:
         ypos 2100
-        zoom 0.7
+        zoom 0.3
     zb "啊…… 对不起对不起{w}\n我这就找纸巾擦！"
     show zb gete_nervous at right:
         ypos 2100
         xpos 1600
-        zoom 0.7
+        zoom 0.3
     show wz decade_surprised at left:
         ypos 1900
         xpos 200
@@ -225,7 +225,7 @@ label start:
     npc "………{w}\n可惜并没有什么卵用"
     show zb gete_smile at right:
         ypos 2100
-        zoom 0.7
+        zoom 0.3
     zb "哈哈，王子你好傻啊"
     wz "哎呀，这都被你发现了"
     npc "二人相视一笑"
@@ -235,19 +235,19 @@ label start:
     npc "(与此同时，餐桌的另一边)"
     show jitou decade_red at center:
         ypos 1700
-        zoom 0.6
+        zoom 0.3
     with dissolve
     jitou "(伸长胳膊够对面的橙汁瓶，指尖还差两厘米碰到瓶子)"
     show qf decade_normal at left:
         ypos 2000
         xpos 200
-        zoom 0.6
+        zoom 0.3
     qf "......."
     npc "秋风坐在锦桐旁边，伸手拿起饮料瓶"
     qf "给"
     show jitou decade_smile at center,nod:
         ypos 1700
-        zoom 0.6
+        zoom 0.3
     jitou "啊谢谢！我还以为够得到呢"
     hide jitou decade_smile
     hide qf decade_normal
