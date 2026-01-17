@@ -134,7 +134,7 @@ style window:
     ysize gui.textbox_height
 
     # background Image("gui/textbox.png", xalign=0.5, yalign=1.0)
-    background Frame(Solid("#ffffffcc", xysize=(100,100)), gui.textbox_borders, tile=gui.textbox_tile) # 圆角半透明白底
+    background Frame("gui/textbox.png", Borders(25, 25, 25, 25))
     
 style namebox:
     # xpos gui.name_xpos
