@@ -325,7 +325,7 @@ screen navigation():
         spacing gui.navigation_spacing
 
         if main_menu:
-            textbutton _("开始游戏") action Start() at button_atl(1), nav_button_eff
+            textbutton _("开始游戏") action Start() at [button_atl(1), nav_button_eff]
         else:
             textbutton _("历史") action ShowMenu("history") at button_atl(1), nav_button_eff
 
@@ -341,7 +341,7 @@ screen navigation():
 
             textbutton _("标题菜单") action MainMenu() at hover_movement
 
-        textbutton _("关于") action ShowMenu("about") at button_atl(4), nav_button_eff
+        textbutton _("关于") action ShowMenu("about") at At(button_atl(4), nav_button_eff)
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
