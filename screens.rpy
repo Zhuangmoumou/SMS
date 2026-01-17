@@ -278,13 +278,14 @@ style quick_button_text:
 ##
 ## 该屏幕包含在标题菜单和游戏菜单中，并提供导航到其他菜单，以及启动游戏。
 
-transform button_easeout(delay_time=0.0):
-    xoffset -500
-    pause delay_time
-    easeout 0.5 xoffset 0
+transform button_atl(idx, exiting):
+    xoffset (-300 if not exiting else 0)
+    pause (idx * 0.2)
+    easeout 0.5 xoffset (0 if not exiting else -300)
 
 screen navigation():
-
+    default exiting = False
+    default button_action = None
     vbox:
         style_prefix "navigation"
 
@@ -295,16 +296,16 @@ screen navigation():
 
         if main_menu:
 
-            textbutton _("开始游戏") action Start() at button_easeout(0.1)
+            textbutton _("开始游戏") action [SetScreenVariable("exiting", True), SetScreenVariable("button_action", Start())] at button_atl(1, exiting)
 
         else:
 
-            textbutton _("历史") action ShowMenu("history") at button_easeout(0.1)
+            textbutton _("历史") action [SetScreenVariable("exiting", True), SetScreenVariable("button_action", ShowMenu("history") )] at button_atl(1, exiting)
 
-            textbutton _("保存") action ShowMenu("save") at button_easeout(0.2)
+            textbutton _("保存") action [SetScreenVariable("exiting", True), SetScreenVariable("button_action", ShowMenu("save"))] at button_atl(2, exiting)
 
-        textbutton _("读取游戏") action ShowMenu("load") at button_easeout(0.2)
-        textbutton _("设置") action ShowMenu("preferences") at button_easeout(0.3)
+        textbutton _("读取游戏") action [SetScreenVariable("exiting", True), SetScreenVariable("button_action", ShowMenu("load"))] at button_atl(2, exiting)
+        textbutton _("设置") action [SetScreenVariable("exiting", True), SetScreenVariable("button_action", ShowMenu("preferences"))] at button_atl(3, exiting)
 
         if _in_replay:
 
@@ -313,17 +314,17 @@ screen navigation():
 
             textbutton _("标题菜单") action MainMenu()
 
-        textbutton _("关于") action ShowMenu("about") at button_easeout(0.4)
+        textbutton _("关于") action ShowMenu("about") at button_atl(4, exiting)
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
             ## “帮助”对移动设备来说并非必需或相关。
-            textbutton _("帮助") action ShowMenu("help") at button_easeout(0.5)
+            textbutton _("帮助") action ShowMenu("help") at button_atl(5, exiting)
 
         if renpy.variant("pc"):
 
             ## 退出按钮在 iOS 上是被禁止使用的，在安卓和网页上也不是必要的。
-            textbutton _("退出") action Quit(confirm=not main_menu) at button_easeout(0.6)
+            textbutton _("退出") action Quit(confirm=not main_menu) at button_atl(6, exiting)
 
 
 style navigation_button is gui_button
