@@ -281,7 +281,7 @@ style quick_button_text:
 transform button_atl(idx, exiting):
     xoffset (-300 if not exiting else 0)
     pause (idx * 0.2)
-    easeout 0.5 xoffset (0 if not exiting else -300)
+    easeout 0.3 xoffset (0 if not exiting else -300)
 
 screen navigation():
     default exiting = False
