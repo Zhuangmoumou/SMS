@@ -1,6 +1,6 @@
-define I = Character('我', color="#ff724832")#定义人物
+define I = Character('我', color="#ff000000")#定义人物
 define npc = Character(None, kind=adv)
-define jitou =Character('靳桐',color="#fffb966e")
+define jitou =Character('靳桐',color="#bbffb300")
 define bw = Character('冰', color="#888888")
 define jige = Character('鸡哥', color="#4a90e2")
 define wz = Character('王子', color="#50e3c2")
