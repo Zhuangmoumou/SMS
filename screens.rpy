@@ -278,13 +278,13 @@ style quick_button_text:
 ##
 ## 该屏幕包含在标题菜单和游戏菜单中，并提供导航到其他菜单，以及启动游戏。
 
-transform button_atl(idx, exiting):
+transform button_atl(idx):
     xoffset (-300 if not exiting else 0)
     pause (idx * 0.2)
     easeout 0.3 xoffset (0 if not exiting else -300)
-
+default exiting = False
 screen navigation():
-    default exiting = False
+    
     default button_action = None
     timer 2.4 action button_action
     vbox:
@@ -297,16 +297,16 @@ screen navigation():
 
         if main_menu:
 
-            textbutton _("开始游戏") action [SetScreenVariable("exiting", True), SetScreenVariable("button_action", Start())] at button_atl(1, exiting)
+            textbutton _("开始游戏") action [SetVariable("exiting", True), SetVariable("button_action", Start())] at button_atl(1, exiting)
 
         else:
 
-            textbutton _("历史") action [SetScreenVariable("exiting", True), SetScreenVariable("button_action", ShowMenu("history") )] at button_atl(1, exiting)
+            textbutton _("历史") action [SetVariable("exiting", True), SetVariable("button_action", ShowMenu("history") )] at button_atl(1, exiting)
 
-            textbutton _("保存") action [SetScreenVariable("exiting", True), SetScreenVariable("button_action", ShowMenu("save"))] at button_atl(2, exiting)
+            textbutton _("保存") action [SetVariable("exiting", True), SetVariable("button_action", ShowMenu("save"))] at button_atl(2, exiting)
 
-        textbutton _("读取游戏") action [SetScreenVariable("exiting", True), SetScreenVariable("button_action", ShowMenu("load"))] at button_atl(2, exiting)
-        textbutton _("设置") action [SetScreenVariable("exiting", True), SetScreenVariable("button_action", ShowMenu("preferences"))] at button_atl(3, exiting)
+        textbutton _("读取游戏") action [SetVariable("exiting", True), SetVariable("button_action", ShowMenu("load"))] at button_atl(2, exiting)
+        textbutton _("设置") action [SetVariable("exiting", True), SetVariable("button_action", ShowMenu("preferences"))] at button_atl(3, exiting)
 
         if _in_replay:
 
