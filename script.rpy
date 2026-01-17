@@ -1,4 +1,4 @@
-define I = Character('我', color="#ff000000")#定义人物
+define I = Character('我', color="#000000")#定义人物
 define npc = Character(None, kind=adv)
 define jitou =Character('靳桐',color="#bbffb300")
 define bw = Character('冰', color="#888888")
