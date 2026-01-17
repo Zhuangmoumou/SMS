@@ -128,21 +128,27 @@ style namebox_label is say_label
 
 style window:
     xalign 0.5
-    xfill True
+    #xfill True
+    xsize 1200
     yalign gui.textbox_yalign
     ysize gui.textbox_height
 
     background Image("gui/textbox.png", xalign=0.5, yalign=1.0)
 
 style namebox:
-    xpos gui.name_xpos
-    xanchor gui.name_xalign
-    xsize gui.namebox_width
-    ypos gui.name_ypos
-    ysize gui.namebox_height
-
+    # xpos gui.name_xpos
+    # xanchor gui.name_xalign
+    # xsize gui.namebox_width
+    # ypos gui.name_ypos
+    # ysize gui.namebox_height
+    xpos 200        # 调整左右
+    ypos -60        # 让名字框“浮”在对话框上面
+    xanchor 0.0
+    yanchor 0.0
+    padding 10, 5   # 内边距
+    
     background Frame("gui/namebox.png", gui.namebox_borders, tile=gui.namebox_tile, xalign=gui.name_xalign)
-    padding gui.namebox_borders.padding
+    # padding gui.namebox_borders.padding
 
 style say_label:
     properties gui.text_properties("name", accent=True)
@@ -268,6 +274,10 @@ style quick_button:
 
 style quick_button_text:
     properties gui.text_properties("quick_button")
+    size 20
+    outline []
+    color "#888888"
+    hover_color "#ffb7c5" #悬停成为樱花粉
 
 
 ################################################################################
@@ -278,11 +288,25 @@ style quick_button_text:
 ##
 ## 该屏幕包含在标题菜单和游戏菜单中，并提供导航到其他菜单，以及启动游戏。
 
+# 按钮easein_back进入
 transform button_atl(idx):
     xoffset -300
     pause (idx * 0.2)
     easein_back 0.2 xoffset 0
-    
+
+# 按钮放大
+transform hover_movement:
+    on hover:
+        parallel:
+            easein 0.2 xoffset -10  # 向左移动10像素
+        parallel:
+            easein 0.2 zoom 1.05   # 稍微放大
+    on idle:
+        parallel:
+            easeout 0.2 xoffset 0
+        parallel:
+            easeout 0.2 zoom 1.0
+
 screen navigation():
 
     vbox:
@@ -294,31 +318,31 @@ screen navigation():
         if main_menu:
             textbutton _("开始游戏") action Start() at button_atl(1)
         else:
-            textbutton _("历史") action ShowMenu("history") at button_atl(1)
+            textbutton _("历史") action ShowMenu("history") at At(button_atl(1), hover_movement)
 
-            textbutton _("保存") action ShowMenu("save") at button_atl(2)
+            textbutton _("保存") action ShowMenu("save") at At(button_atl(2), hover_movement)
 
-        textbutton _("读取游戏") action ShowMenu("load") at button_atl(2)
+        textbutton _("读取游戏") action ShowMenu("load") at At(button_atl(2), hover_movement)
 
-        textbutton _("设置") action ShowMenu("preferences") at button_atl(3)
+        textbutton _("设置") action ShowMenu("preferences") at At(button_atl(3), hover_movement)
         if _in_replay:
 
-            textbutton _("结束回放") action EndReplay(confirm=True)
+            textbutton _("结束回放") action EndReplay(confirm=True) at hover_movement
         elif not main_menu:
 
-            textbutton _("标题菜单") action MainMenu()
+            textbutton _("标题菜单") action MainMenu() at hover_movement
 
-        textbutton _("关于") action ShowMenu("about") at button_atl(4)
+        textbutton _("关于") action ShowMenu("about") at At(button_atl(4), hover_movement)
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
             ## “帮助”对移动设备来说并非必需或相关。
-            textbutton _("帮助") action ShowMenu("help") at button_atl(5)
+            textbutton _("帮助") action ShowMenu("help") at At(button_atl(5), hover_movement)
 
         if renpy.variant("pc"):
 
             ## 退出按钮在 iOS 上是被禁止使用的，在安卓和网页上也不是必要的。
-            textbutton _("退出") action Quit(confirm=not main_menu) at button_atl(6)
+            textbutton _("退出") action Quit(confirm=not main_menu) at At(button_atl(6), hover_movement)
 
 
 style navigation_button is gui_button
