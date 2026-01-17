@@ -287,35 +287,40 @@ style quick_button_text:
 ##
 ## 该屏幕包含在标题菜单和游戏菜单中，并提供导航到其他菜单，以及启动游戏。
 
-# 按钮easein_back进入
-transform button_atl(idx):
-    on show:
-        xoffset -300
-        pause (idx * 0.2)
-        easein_back 0.2 xoffset 0
-        
+################################################################################
+## 导航菜单动画与屏幕代码
+################################################################################
+
+# 1. 外层容器专用：入场动画 (只负责飞进来，不做任何交互)
+transform nav_enter_anim(idx):
+    # 初始状态：透明，位于左侧 -300 像素
+    alpha 0.0
+    xoffset -300
+    
+    # 根据 idx 计算延迟，形成阶梯效果 (0.1秒间隔比较干脆，0.2秒比较优雅，可自行调整)
+    pause (idx * 0.15)
+    
+    # 飞入并显形
+    parallel:
+        easein_back 0.4 xoffset 0
+    parallel:
+        linear 0.3 alpha 1.0
+
+# 2. 按钮本体专用：悬浮动画 (只负责鼠标放上去的反馈)
+transform nav_hover_anim:
     on hover:
+        parallel:
+            easein 0.2 xoffset -15  # 悬浮时向左移动
         parallel:
             easein 0.2 zoom 1.05    # 悬浮时放大
             
     on idle:
         parallel:
-            easeout 0.2 zoom 1.0    # 离开时恢复大小
-# 按钮放大
-transform hover_movement:
-    on hover:
+            easeout 0.2 xoffset 0   # 离开时平滑复位
         parallel:
-            easein 0.2 xoffset -10  # 悬浮时向左移
-        parallel:
-            easein 0.2 zoom 1.05    # 悬浮时放大
-            
-    on idle:
-        parallel:
-            easeout 0.2 xoffset 0   # 离开时恢复位置
-        parallel:
-            easeout 0.2 zoom 1.0    # 离开时恢复大小
+            easeout 0.2 zoom 1.0    # 离开时平滑复原
 
-
+# 3. 导航屏幕主体
 screen navigation():
 
     vbox:
@@ -324,34 +329,111 @@ screen navigation():
         yalign 0.5
         spacing gui.navigation_spacing
 
+        # --- 按钮 1：开始游戏 / 历史 ---
         if main_menu:
-            textbutton _("开始游戏") action Start() at button_atl(1)
+            frame:
+                padding (0, 0)      # 去除内边距
+                background None     # 去除背景，完全透明
+                at nav_enter_anim(1) # 【外壳】负责飞入
+                
+                textbutton _("开始游戏"):
+                    action Start()
+                    at nav_hover_anim # 【按钮】负责悬浮
         else:
-            textbutton _("历史") action ShowMenu("history") at button_atl(1)
+            frame:
+                padding (0, 0)
+                background None
+                at nav_enter_anim(1)
+                
+                textbutton _("历史"):
+                    action ShowMenu("history")
+                    at nav_hover_anim
 
-            textbutton _("保存") action ShowMenu("save") at button_atl(2)
+        # --- 按钮 2：保存 (仅在非主菜单显示) ---
+        if not main_menu:
+            frame:
+                padding (0, 0)
+                background None
+                at nav_enter_anim(2)
+                
+                textbutton _("保存"):
+                    action ShowMenu("save") 
+                    at nav_hover_anim
 
-        textbutton _("读取游戏") action ShowMenu("load") at button_atl(2)
+        # --- 按钮 3：读取游戏 ---
+        # 注意：这里的 idx 顺延下去，保证动画连贯
+        frame:
+            padding (0, 0)
+            background None
+            at nav_enter_anim(3) 
+            
+            textbutton _("读取游戏"):
+                action ShowMenu("load")
+                at nav_hover_anim
 
-        textbutton _("设置") action ShowMenu("preferences") at button_atl(3)
+        # --- 按钮 4：设置 ---
+        frame:
+            padding (0, 0)
+            background None
+            at nav_enter_anim(4)
+            
+            textbutton _("设置"):
+                action ShowMenu("preferences")
+                at nav_hover_anim
+
+        # --- 按钮 5：结束回放 / 标题菜单 ---
         if _in_replay:
-
-            textbutton _("结束回放") action EndReplay(confirm=True) at hover_movement
+            frame:
+                padding (0, 0)
+                background None
+                at nav_enter_anim(5)
+                
+                textbutton _("结束回放"):
+                    action EndReplay(confirm=True)
+                    at nav_hover_anim
+                    
         elif not main_menu:
+            frame:
+                padding (0, 0)
+                background None
+                at nav_enter_anim(5)
+                
+                textbutton _("标题菜单"):
+                    action MainMenu()
+                    at nav_hover_anim
 
-            textbutton _("标题菜单") action MainMenu() at hover_movement
+        # --- 按钮 6：关于 ---
+        frame:
+            padding (0, 0)
+            background None
+            at nav_enter_anim(6)
+            
+            textbutton _("关于"):
+                action ShowMenu("about")
+                at nav_hover_anim
 
-        textbutton _("关于") action ShowMenu("about") at button_atl(4)
-
+        # --- 按钮 7：帮助 (仅PC/Web) ---
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
+            frame:
+                padding (0, 0)
+                background None
+                at nav_enter_anim(7)
+                
+                textbutton _("帮助"):
+                    action ShowMenu("help")
+                    at nav_hover_anim
 
-            ## “帮助”对移动设备来说并非必需或相关。
-            textbutton _("帮助") action ShowMenu("help") at button_atl(5)
-
+        # --- 按钮 8：退出 (仅PC) ---
         if renpy.variant("pc"):
+            frame:
+                padding (0, 0)
+                background None
+                at nav_enter_anim(8)
+                
+                textbutton _("退出"):
+                    action Quit(confirm=not main_menu)
+                    at nav_hover_anim
 
-            ## 退出按钮在 iOS 上是被禁止使用的，在安卓和网页上也不是必要的。
-            textbutton _("退出") action Quit(confirm=not main_menu) at button_atl(6)
 
 
 style navigation_button is gui_button
@@ -407,7 +489,7 @@ style main_menu_version is main_menu_text
 style main_menu_frame:
     xsize 420
     yfill True
-    background At("gui/overlay/main_menu.png", button_atl(0.1))
+    background "gui/overlay/main_menu.png"
 
 style main_menu_vbox:
     xalign 1.0
@@ -523,7 +605,7 @@ style game_menu_outer_frame:
     bottom_padding 45
     top_padding 180
 
-    background At("gui/overlay/game_menu.png", button_atl(0))
+    background "gui/overlay/game_menu.png"
 
 style game_menu_navigation_frame:
     xsize 420
