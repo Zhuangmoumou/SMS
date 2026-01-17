@@ -128,13 +128,12 @@ style namebox_label is say_label
 
 style window:
     xalign 0.5
-    xfill False
-    xsize 1200
+    xfill True
     yalign gui.textbox_yalign
     ysize gui.textbox_height
 
-    # background Image("gui/textbox.png", xalign=0.5, yalign=1.0)
-    background Frame("gui/textbox.png", Borders(25, 25, 25, 25))
+    background Image("gui/textbox.png", xalign=0.5, yalign=1.0)
+    # background Frame("gui/textbox.png", Borders(25, 25, 25, 25))
     
 style namebox:
     # xpos gui.name_xpos
@@ -317,15 +316,15 @@ screen navigation():
         spacing gui.navigation_spacing
 
         if main_menu:
-            textbutton _("开始游戏") action Start() at button_atl(1)
+            textbutton _("开始游戏") action Start() at [button_atl(1), hover_movement]
         else:
-            textbutton _("历史") action ShowMenu("history") at button_atl(1), hover_movement
+            textbutton _("历史") action ShowMenu("history") at [button_atl(1), hover_movement]
 
-            textbutton _("保存") action ShowMenu("save") at button_atl(2), hover_movement
+            textbutton _("保存") action ShowMenu("save") at [button_atl(2), hover_movement]
 
-        textbutton _("读取游戏") action ShowMenu("load") at button_atl(2), hover_movement
+        textbutton _("读取游戏") action ShowMenu("load") at [button_atl(2), hover_movement]
 
-        textbutton _("设置") action ShowMenu("preferences") at button_atl(3), hover_movement
+        textbutton _("设置") action ShowMenu("preferences") at [button_atl(3), hover_movement]
         if _in_replay:
 
             textbutton _("结束回放") action EndReplay(confirm=True) at hover_movement
@@ -333,17 +332,17 @@ screen navigation():
 
             textbutton _("标题菜单") action MainMenu() at hover_movement
 
-        textbutton _("关于") action ShowMenu("about") at button_atl(4), hover_movement
+        textbutton _("关于") action ShowMenu("about") at [button_atl(4), hover_movement]
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
             ## “帮助”对移动设备来说并非必需或相关。
-            textbutton _("帮助") action ShowMenu("help") at button_atl(5), hover_movement
+            textbutton _("帮助") action ShowMenu("help") at [button_atl(5), hover_movement]
 
         if renpy.variant("pc"):
 
             ## 退出按钮在 iOS 上是被禁止使用的，在安卓和网页上也不是必要的。
-            textbutton _("退出") action Quit(confirm=not main_menu) at button_atl(6), hover_movement
+            textbutton _("退出") action Quit(confirm=not main_menu) at [button_atl(6), hover_movement]
 
 
 style navigation_button is gui_button
