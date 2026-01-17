@@ -287,7 +287,7 @@ transform button_atl(idx, exiting_val):
     pause (idx * 0.1) 
     
     # 动画过程：如果不退出，移到0；如果退出，移到-300
-    easeout 0.3 xoffset (0 if not exiting_val else -300)
+    easeout_back 0.3 xoffset (0 if not exiting_val else -300)
 
 screen navigation():
     # 使用 screen 内部变量来控制退出状态和动作
