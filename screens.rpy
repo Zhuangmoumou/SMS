@@ -279,14 +279,9 @@ style quick_button_text:
 ## 该屏幕包含在标题菜单和游戏菜单中，并提供导航到其他菜单，以及启动游戏。
 
 transform button_atl(idx):
-    on show:
-        xoffset -300
-        pause (idx * 0.2)
-        easein_back 0.2 xoffset 0
-    on hide:
-        xoffset 0
-        pause (idx * 0.2)
-        easeout_back 0.2 xoffset -300
+    xoffset -300
+    pause (idx * 0.2)
+    easein_back 0.2 xoffset 0
     
 screen navigation():
 
