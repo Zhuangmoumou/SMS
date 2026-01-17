@@ -234,6 +234,21 @@ style choice_button_text is default:
 ##
 ## 快捷菜单显示于游戏内，以便于访问游戏外的菜单。
 
+# 导航按钮悬浮动画
+transform img_hover_anim:
+    zoom 0.8
+    on hover:
+        parallel:
+            easein 0.2 yoffset -5  # 悬浮时向左移动
+        parallel:
+            easein 0.2 zoom 0.81    # 悬浮时放大
+            
+    on idle:
+        parallel:
+            easeout 0.2 yoffset 0   # 离开时平滑复位
+        parallel:
+            easeout 0.2 zoom 0.8    # 离开时平滑复原
+
 screen quick_menu():
 
     ## 确保该菜单出现在其他屏幕之上，
@@ -253,30 +268,39 @@ screen quick_menu():
             #textbutton _("快存") action QuickSave()
             #textbutton _("快读") action QuickLoad()
             #textbutton _("设置") action ShowMenu('preferences')
+            #更改为图标按钮
             imagebutton:
                 idle "gui/menu/back.png"
                 action Rollback()
+                at img_hover_anim
             imagebutton:
                 idle "gui/menu/history.png"
                 action ShowMenu('history')
+                at img_hover_anim
             imagebutton:
                 idle "gui/menu/skip.png"
                 action Skip() alternate Skip(fast=True, confirm=True)
+                at img_hover_anim
             imagebutton:
                 idle "gui/menu/auto.png"
                 action Preference("auto-forward", "toggle")
+                at img_hover_anim
             imagebutton:
                 idle "gui/menu/save.png"
                 action ShowMenu('save')
+                at img_hover_anim
             imagebutton:
                 idle "gui/menu/q_save.png"
                 action QuickSave()
+                at img_hover_anim
             imagebutton:
                 idle "gui/menu/q_load.png"
                 action QuickLoad()
+                at img_hover_anim
             imagebutton:
                 idle "gui/menu/settings.png"
                 action ShowMenu('preferences')
+                at img_hover_anim
 
 ## 此代码确保只要用户没有主动隐藏界面，就会在游戏中显示 quick_menu 屏幕。
 init python:
@@ -291,6 +315,7 @@ style quick_button_text is button_text
 style quick_menu:
     xalign 0.5
     yalign 1.0
+    spacing 30
 
 style quick_button:
     properties gui.button_properties("quick_button")
