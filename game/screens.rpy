@@ -245,15 +245,38 @@ screen quick_menu():
             style_prefix "quick"
             style "quick_menu"
 
-            textbutton _("回退") action Rollback()
-            textbutton _("历史") action ShowMenu('history')
-            textbutton _("快进") action Skip() alternate Skip(fast=True, confirm=True)
-            textbutton _("自动") action Preference("auto-forward", "toggle")
-            textbutton _("保存") action ShowMenu('save')
-            textbutton _("快存") action QuickSave()
-            textbutton _("快读") action QuickLoad()
-            textbutton _("设置") action ShowMenu('preferences')
-
+            #textbutton _("回退") action Rollback()
+            #textbutton _("历史") action ShowMenu('history')
+            #textbutton _("快进") action Skip() alternate Skip(fast=True, confirm=True)
+            #textbutton _("自动") action Preference("auto-forward", "toggle")
+            #textbutton _("保存") action ShowMenu('save')
+            #textbutton _("快存") action QuickSave()
+            #textbutton _("快读") action QuickLoad()
+            #textbutton _("设置") action ShowMenu('preferences')
+            imagebutton:
+                idle "gui/menu/back.png"
+                action Rollback()
+            imagebutton:
+                idle "gui/menu/history.png"
+                action ShowMenu('history')
+            imagebutton:
+                idle "gui/menu/skip.png"
+                action Skip() alternate Skip(fast=True, confirm=True)
+            imagebutton:
+                idle "gui/menu/auto.png"
+                action Preference("auto-forward", "toggle")
+            imagebutton:
+                idle "gui/menu/save.png"
+                action ShowMenu('save')
+            imagebutton:
+                idle "gui/menu/q_save.png"
+                action QuickSave()
+            imagebutton:
+                idle "gui/menu/q_load.png"
+                action QuickLoad()
+            imagebutton:
+                idle "gui/menu/settings.png"
+                action ShowMenu('preferences')
 
 ## 此代码确保只要用户没有主动隐藏界面，就会在游戏中显示 quick_menu 屏幕。
 init python:
