@@ -16,18 +16,19 @@ define config.name = _("SMS")
 
 ## 决定上面给出的标题是否显示在标题界面屏幕。设置为 False 来隐藏标题。
 
-define gui.show_name = True
+define gui.show_name = False
 
 
 ## 游戏版本号。
 
-define config.version = "1.0"
+define config.version = "0.1"
 
 
 ## 放置在游戏内“关于”屏幕上的文本。将文本放在三个引号之间，并在段落之间留出空
 ## 行。
 
 define gui.about = _p("""
+Made by Taotao, Zhuang, tdw
 """)
 
 
@@ -78,12 +79,12 @@ define config.intra_transition = dissolve
 
 ## 载入游戏后使用的转场。
 
-define config.after_load_transition = None
+define config.after_load_transition = dissolve
 
 
 ## 在游戏结束之后进入主菜单时使用的转场。
 
-define config.end_game_transition = None
+define config.end_game_transition = dissolve
 
 
 ## 用于控制在游戏开始标签不存在时转场的变量。作为替代，在显示初始化场景后使用
@@ -132,7 +133,7 @@ default preferences.afm_time = 15
 ##
 ## 该语句通常不应变更，若要变更，应为有效字符串而不是表达式。
 
-define config.save_directory = "SMS-1765617841"
+define config.save_directory = "SMS-2512"
 
 
 ## 图标 ##########################################################################

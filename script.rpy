@@ -113,12 +113,15 @@ label start:
         zoom 0.6
     with fade
     jitou "啊~~~{w}\n对...对...对不起！{w}\n我没看路！"
-    I "是锦桐吗，好久不见了"
+    I "啊...没事"
+    I "欸？{w}\n是锦桐吗，好久不见了"
     show jitou decade at center:
         ypos 1700
         zoom 0.6
-    jitou "好巧啊"
-    show jitou decade at center
+    jitou "欸...欸？\n好巧啊，在这撞到你"
+    show jitou decade at center:
+        ypos 1700
+        zoom 0.6
     I "(这么多年过去，她还是老样子…… 不过聚会快开始了，先进去再叙旧吧)"
     I "我们赶紧进去吧，大家应该都到得差不多了"
     jitou "嗯，我们走吧"
@@ -165,7 +168,7 @@ label start:
 
     show zmw decade_normal at left:
         ypos 1900
-        zoom 0.6
+        zoom 0.7
     with dissolve
     zmw "(从旁边经过，听到自己的名字，停下脚步)"
     zmw "(想说句话可又不知道该说什么)"
@@ -175,7 +178,7 @@ label start:
     hide zmw decade_normal
     with dissolve
     npc "我和王冰相视一笑，毕竟明薇以前总是这样，性格有点孤僻"
-    hide bw dress_smile、
+    hide bw dress_smile
     with dissolve
     npc "后来大家聊起了各自的近况，气氛渐渐热络起来"
     npc "刚才出去抽烟的王子也回来加入了谈话"
