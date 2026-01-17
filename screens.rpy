@@ -286,7 +286,7 @@ transform button_atl(idx):
     on hide:
         xoffset 0
         pause (idx * 0.2)
-        easein_back 0.2 xoffset -300
+        easeout_back 0.2 xoffset -300
     
 screen navigation():
 

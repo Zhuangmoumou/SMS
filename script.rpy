@@ -73,8 +73,9 @@ transform hit_three:
 
 
 label start:
-
+    window hide
     play sound alarm
+    window show
     npc "（闹钟声）"
     scene bedroom at p1080p         #使用1080p函数
     with Dissolve(1.0)
