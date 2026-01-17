@@ -278,27 +278,29 @@ style quick_button_text:
 ##
 ## 该屏幕包含在标题菜单和游戏菜单中，并提供导航到其他菜单，以及启动游戏。
 
-# 1. 修改 Transform，使其接受 exiting 参数
-transform button_atl(idx, exiting_val):
-    # 初始位置：如果不是正在退出，则从左边-300进来；如果是正在退出，则从0开始
-    xoffset (-300 if not exiting_val else 0)
+transform button_atl(idx, is_exiting):
+    # 初始位置：
+    # 如果不是在退出，则从左边 -300 开始（进入动画）
+    # 如果正在退出，则从当前位置 0 开始（退出动画）
+    xoffset (-300 if not is_exiting else 0)
     
-    # 这里的 pause 是为了让按钮一个接一个动
-    pause (idx * 0.1) 
+    # 延迟时间
+    pause (idx * 0.1)
     
-    # 动画过程：如果不退出，移到0；如果退出，移到-300
-    easeout_back 0.3 xoffset (0 if not exiting_val else -300)
-
+    # 移动过程：
+    # 如果不是在退出，移向 0
+    # 如果正在退出，移向 -300
+    easeout 0.3 xoffset (0 if not is_exiting else -300)
+    
 screen navigation():
-    # 使用 screen 内部变量来控制退出状态和动作
+    # 使用 default 定义屏幕变量
     default exiting = False
     default pending_action = None
 
-    # 当 exiting 变为 True 时，启动计时器
+    # 当 exiting 变为 True 时，计时器开始倒计时
     if exiting:
-        # 这里的 0.6 秒 = 最大 pause (3*0.1) + easeout (0.3)
-        # 建议时间不要设得比动画长太多，否则玩家会觉得没反应
-        timer 0.6 action pending_action 
+        # 这里的 0.8 秒要大于最晚一个按钮完成动画的时间 (idx*0.1 + 0.3)
+        timer 0.8 action pending_action 
 
     vbox:
         style_prefix "navigation"
@@ -308,24 +310,39 @@ screen navigation():
 
         if main_menu:
             textbutton _("开始游戏"):
-                # 点击时：1.设置动作为Start()  2.触发退出动画
-                action [SetScreenVariable("pending_action", Start()), SetScreenVariable("exiting", True)]
+                # 全部使用 SetScreenVariable 确保修改的是本屏幕的变量
+                action [
+                    SetScreenVariable("pending_action", Start()), 
+                    SetScreenVariable("exiting", True)
+                ]
                 at button_atl(1, exiting)
         else:
             textbutton _("历史"):
-                action [SetScreenVariable("pending_action", ShowMenu("history")), SetScreenVariable("exiting", True)]
+                action [
+                    SetScreenVariable("pending_action", ShowMenu("history")), 
+                    SetScreenVariable("exiting", True)
+                ]
                 at button_atl(1, exiting)
 
             textbutton _("保存"):
-                action [SetScreenVariable("pending_action", ShowMenu("save")), SetScreenVariable("exiting", True)]
+                action [
+                    SetScreenVariable("pending_action", ShowMenu("save")), 
+                    SetScreenVariable("exiting", True)
+                ]
                 at button_atl(2, exiting)
 
         textbutton _("读取游戏"):
-            action [SetScreenVariable("pending_action", ShowMenu("load")), SetScreenVariable("exiting", True)]
+            action [
+                SetScreenVariable("pending_action", ShowMenu("load")), 
+                SetScreenVariable("exiting", True)
+            ]
             at button_atl(3, exiting)
 
         textbutton _("设置"):
-            action [SetScreenVariable("pending_action", ShowMenu("preferences")), SetScreenVariable("exiting", True)]
+            action [
+                SetScreenVariable("pending_action", ShowMenu("preferences")), 
+                SetScreenVariable("exiting", True)
+            ]
             at button_atl(4, exiting)
         if _in_replay:
 
