@@ -65,10 +65,10 @@ define gui.name_text_font = "LXGWWenKai-Medium.ttf"
 define gui.interface_text_font = "LXGWWenKai-Medium.ttf"
 
 ## 普通对话文本的大小。
-define gui.text_size = 28
+define gui.text_size = 27
 
 ## 角色名称的大小。
-define gui.name_text_size = 36
+define gui.name_text_size = 35
 
 ## 游戏用户界面中文本的大小。
 define gui.interface_text_size = 32
@@ -95,7 +95,7 @@ define gui.game_menu_background = "gui/game_menu.png"
 ## 这些变量控制对话如何在屏幕上逐行显示。
 
 ## 包含对话的文本框的高度。
-define gui.textbox_height = 278
+define gui.textbox_height = 280
 
 ## 文本框在屏幕上的垂直位置。0.0 是顶部，0.5 是居中，1.0 是底部。
 define gui.textbox_yalign = 1.0
