@@ -145,7 +145,7 @@ style namebox:
     ypos -60        # 让名字框“浮”在对话框上面
     xanchor 0.0
     yanchor 0.0
-    padding 10, 5   # 内边距
+    padding (10, 5)   # 内边距
     
     background Frame("gui/namebox.png", gui.namebox_borders, tile=gui.namebox_tile, xalign=gui.name_xalign)
     # padding gui.namebox_borders.padding
@@ -275,7 +275,6 @@ style quick_button:
 style quick_button_text:
     properties gui.text_properties("quick_button")
     size 20
-    outline []
     color "#888888"
     hover_color "#ffb7c5" #悬停成为樱花粉
 
@@ -398,8 +397,7 @@ style main_menu_version is main_menu_text
 style main_menu_frame:
     xsize 420
     yfill True
-
-    background "gui/overlay/main_menu.png" at button_atl(0)
+    background Transform("gui/overlay/main_menu.png", at=button_atl(0))
 
 style main_menu_vbox:
     xalign 1.0
@@ -515,7 +513,7 @@ style game_menu_outer_frame:
     bottom_padding 45
     top_padding 180
 
-    background "gui/overlay/game_menu.png" at button_atl(0)
+    background Transform("gui/overlay/game_menu.png", at=button_atl(0))
 
 style game_menu_navigation_frame:
     xsize 420
