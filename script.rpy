@@ -74,7 +74,7 @@ transform hit_three:
 
 label start:
 
-    play sound "闹钟.mp3"
+    play sound alarm
     npc "（闹钟声）"
     scene bedroom at p1080p         #使用1080p函数
     with Dissolve(1.0)
@@ -93,14 +93,14 @@ label start:
 
     scene homeopen at p1080p
     with dissolve
-    play sound "电梯.mp3"
+    play sound dianti
     npc "（电梯声）"
     I "诶，电梯今天怎么这么快"
     I "顺便把垃圾倒了吧"
 
     scene street at p1080p
     with fade
-    play music "轻松.mp3" volume 0.6 fadein 1.0
+    play music relax volume 0.6 fadein 1.0
     I "呼…… 可算快到了，应该赶得上吧"
     npc "我正要过公路时，左肩突然被撞了一下"
     show jitou decade_surprised at hit_three,center:
