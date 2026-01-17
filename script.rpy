@@ -3,7 +3,7 @@ define npc = Character(None, kind=adv)
 define jitou =Character('锦桐',color="#b39c1f")
 define bw = Character('冰', color="#888888")
 define jige = Character('鸡哥', color="#4a90e2")
-define wz = Character('王子', color="#50e3c2")
+define wz = Character('王子', color="#50e3c2", zoom=1.5)
 define zmw = Character('明薇', color="#9013fe")
 define qf = Character('秋风', color="#f5a623")
 
@@ -75,8 +75,10 @@ transform hit_three:
 label start:
     window hide
     play sound alarm
+    pause
     window show
     npc "（闹钟声）"
+    stop sound fadeout 0.5
     scene bedroom at p1080p         #使用1080p函数
     with Dissolve(1.0)
 

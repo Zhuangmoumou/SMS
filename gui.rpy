@@ -65,10 +65,10 @@ define gui.name_text_font = "PingFangSC-Medium.ttf"
 define gui.interface_text_font = "PingFangSC-Medium.ttf"
 
 ## 普通对话文本的大小。
-define gui.text_size = 30
+define gui.text_size = 28
 
 ## 角色名称的大小。
-define gui.name_text_size = 40
+define gui.name_text_size = 38
 
 ## 游戏用户界面中文本的大小。
 define gui.interface_text_size = 33
@@ -103,7 +103,7 @@ define gui.textbox_yalign = 1.0
 
 ## 叙述角色名字相对于文本框的位置。可以是从左侧或顶部起的整数像素，或设为 0.5 来
 ## 居中。
-define gui.name_xpos = 360
+define gui.name_xpos = 320
 define gui.name_ypos = 0
 
 ## 角色名字的水平对齐方式。0.0 为左侧对齐，0.5 为居中显示，而 1.0 为右侧对齐。
