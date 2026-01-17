@@ -274,7 +274,7 @@ style quick_button:
 
 style quick_button_text:
     properties gui.text_properties("quick_button")
-    size 20
+    size 25
     color "#888888"
     hover_color "#ffb7c5" #悬停成为樱花粉
 
@@ -302,25 +302,18 @@ transform button_atl(idx):
         parallel:
             easeout 0.2 zoom 1.0    # 离开时恢复大小
 # 按钮放大
-# transform nav_button_eff:
-    # # 1. 进场动画 (on show 确保它在按钮出现时优先执行)
-    # # on show:
-        # # xoffset -300
-        # # pause (idx * 0.2)
-        # # easein_back 0.2 xoffset 0
-    
-    # # 2. 悬浮交互 (on hover / on idle)
-    # on hover:
-        # parallel:
-            # easein 0.2 xoffset -10  # 悬浮时向左移
-        # parallel:
-            # easein 0.2 zoom 1.05    # 悬浮时放大
+transform hover_movement:
+    on hover:
+        parallel:
+            easein 0.2 xoffset -10  # 悬浮时向左移
+        parallel:
+            easein 0.2 zoom 1.05    # 悬浮时放大
             
-    # on idle:
-        # parallel:
-            # easeout 0.2 xoffset 0   # 离开时恢复位置
-        # parallel:
-            # easeout 0.2 zoom 1.0    # 离开时恢复大小
+    on idle:
+        parallel:
+            easeout 0.2 xoffset 0   # 离开时恢复位置
+        parallel:
+            easeout 0.2 zoom 1.0    # 离开时恢复大小
 
 
 screen navigation():
@@ -348,7 +341,7 @@ screen navigation():
 
             textbutton _("标题菜单") action MainMenu() at hover_movement
 
-        textbutton _("关于") action ShowMenu("about") at At(button_atl(4))
+        textbutton _("关于") action ShowMenu("about") at button_atl(4)
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
