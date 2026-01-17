@@ -286,6 +286,7 @@ transform button_atl(idx, exiting):
 screen navigation():
     default exiting = False
     default button_action = None
+    timer 2.4 action button_action
     vbox:
         style_prefix "navigation"
 
