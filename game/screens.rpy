@@ -461,18 +461,18 @@ screen navigation():
                 at nav_hover_anim
 
         # --- 按钮 7：帮助 (仅PC/Web) ---
-        if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
-            frame:
-                padding (0, 0)
-                background None
-                at nav_enter_anim(7)
-                
-                textbutton _("帮助"):
-                    action ShowMenu("help")
-                    at nav_hover_anim
+        # if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
+        frame:
+            padding (0, 0)
+            background None
+            at nav_enter_anim(7)
+            
+            textbutton _("帮助"):
+                action ShowMenu("help")
+                at nav_hover_anim
 
         # --- 按钮 8：退出 (仅PC) ---
-        if renpy.variant("pc"):
+        if renpy.variant("pc") or renpy.variant("mobile"):
             frame:
                 padding (0, 0)
                 background None
@@ -1724,7 +1724,7 @@ style nvl_window:
 
 style main_menu_frame:
     variant "small"
-    background "gui/phone/overlay/main_menu.png"
+    background At("gui/phone/overlay/main_menu.png", nav_enter_anim(0))
 
 style game_menu_outer_frame:
     variant "small"
