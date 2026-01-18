@@ -1708,7 +1708,13 @@ screen quick_menu():
 
 style window:
     variant "small"
-    background "gui/phone/textbox.png"
+    # background "gui/phone/textbox.png"
+    xalign 0.5
+    xfill True
+    yalign gui.textbox_yalign
+    ysize gui.textbox_height
+
+    background Image("gui/phone/textbox.png", xalign=0.5, yalign=1.0)
 
 style radio_button:
     variant "small"
