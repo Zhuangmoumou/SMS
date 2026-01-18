@@ -1668,10 +1668,42 @@ screen quick_menu():
             style "quick_menu"
             style_prefix "quick"
 
-            textbutton _("回退") action Rollback()
-            textbutton _("快进") action Skip() alternate Skip(fast=True, confirm=True)
-            textbutton _("自动") action Preference("auto-forward", "toggle")
-            textbutton _("菜单") action ShowMenu()
+            # textbutton _("回退") action Rollback()
+            # textbutton _("快进") action Skip() alternate Skip(fast=True, confirm=True)
+            # textbutton _("自动") action Preference("auto-forward", "toggle")
+            # textbutton _("菜单") action ShowMenu()
+            imagebutton:
+                idle "gui/menu/back.png"
+                action Rollback()
+                at img_hover_anim
+            imagebutton:
+                idle "gui/menu/history.png"
+                action ShowMenu('history')
+                at img_hover_anim
+            imagebutton:
+                idle "gui/menu/skip.png"
+                action Skip() alternate Skip(fast=True, confirm=True)
+                at img_hover_anim
+            imagebutton:
+                idle "gui/menu/auto.png"
+                action Preference("auto-forward", "toggle")
+                at img_hover_anim
+            imagebutton:
+                idle "gui/menu/save.png"
+                action ShowMenu('save')
+                at img_hover_anim
+            imagebutton:
+                idle "gui/menu/q_save.png"
+                action QuickSave()
+                at img_hover_anim
+            imagebutton:
+                idle "gui/menu/q_load.png"
+                action QuickLoad()
+                at img_hover_anim
+            imagebutton:
+                idle "gui/menu/settings.png"
+                action ShowMenu('preferences')
+                at img_hover_anim
 
 
 style window:
