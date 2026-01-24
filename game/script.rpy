@@ -15,10 +15,21 @@ image whitebg = Solid("#FFFFFF") #定义白色背景
 ### 层叠式图像定义
 
 layeredimage jitou:
-    group pose auto default "normal"
-    group cloth auto default "normal_maoyi"
-    group expression auto default "normal"
+    # 定义 pose 组
+    group pose:
+        auto
+        attribute normal default
 
+    # 定义 cloth 组
+    group cloth:
+        auto
+        attribute normal_maoyi default
+
+    # 定义 expression 组
+    group expression:
+        auto
+        attribute normal default
+        
 transform shake_side: #定义侧向震动效果
     linear 0.1 xoffset -10
     linear 0.1 xoffset 10
