@@ -12,6 +12,12 @@ define zb = Character('烛悦', color="#ff4c8dae")
 image blackbg = Solid("#000000") #定义黑色背景
 image whitebg = Solid("#FFFFFF") #定义白色背景
 
+### 层叠式图像定义
+
+layeredimage jitou:
+    group pose auto default "normal"
+    group cloth auto default "normal_maoyi"
+    group expression auto default "normal"
 
 transform shake_side: #定义侧向震动效果
     linear 0.1 xoffset -10
@@ -108,18 +114,18 @@ label start:
     play music relax volume 0.6 fadein 1.0
     I "呼…… 可算快到了，应该赶得上吧"
     npc "我正要过公路时，左肩突然被撞了一下"
-    show jitou decade_surprised at hit_three,center:
+    show jitou surprise surprise_maoyi surprise at hit_three,center:
         ypos 1700
         zoom 0.3
     with fade
     jitou "啊~~~{w}\n对...对...对不起！{w}\n我没看路！"
     I "啊...没事"
     I "欸？{w}\n是锦桐吗，好久不见了"
-    show jitou decade at center:
+    show jitou at center:
         ypos 1700
         zoom 0.3
     jitou "欸...欸？\n好巧啊，在这撞到你"
-    show jitou decade at center:
+    show jitou at center:
         ypos 1700
         zoom 0.3
     I "(这么多年过去，她还是老样子…… 不过聚会快开始了，先进去再叙旧吧)"
@@ -128,7 +134,7 @@ label start:
     
     scene tablenofood at p1080p
     with fade
-    show jige decade_huanbao at center:
+    show jige at center:
         ypos 2100
         zoom 0.3
     with dissolve
@@ -233,7 +239,7 @@ label start:
     hide wz decade_surprised
     with dissolve
     npc "(与此同时，餐桌的另一边)"
-    show jitou decade_red at center:
+    show jitou at center:
         ypos 1700
         zoom 0.3
     with dissolve
